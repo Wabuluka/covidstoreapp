@@ -1,38 +1,48 @@
 extends ../layout
 block content
-    .row.mt-5
-        .col-sm-10
-            h5 Create New Product
-        .col-sm-2.text-right
-            a(href="/admin") return to admin
-    .row
-        .col-sm-7
-        .col-sm-5
-            header.card-header
+    .container.top-margin-from-navigation
+        .row.mt-5
+            .col-sm-10
+                h5 Create New Product
+            .col-sm-2.text-right
+                a(href="/admin") return to admin
+        .row
+            .col-sm-7
+            .col-sm-5
+                header.card-header
 
-                h4.card-title Product Details
-            form(method="POST" action="/products/add-product" enctype="multipart/form-data")
-                .form-row.mt-2
-                    .col.form-group
-                        label Product Name:
-                        input.form-control(name="productname" type="text")
-                .form-row
-                    .col.form-group
-                        label Add Product Image:
-                        input.form-control-file(type="file" name="productimage")
+                    h4.card-title Product Details
+                form(method="POST" action="/products/add-product" enctype="multipart/form-data")
+                    .form-row.mt-2
+                        .col.form-group
+                            label Product Name:
+                            input.form-control(name="productname" type="text")
+                    .form-row
+                        .col.form-group
+                            label Add Product Image:
+                            input.form-control-file(type="file" name="productimage")
+                    .form-row
+                        .col.form-group
+                            label Product Description
+                            textarea.form-control(name="description", cols="30", rows="5")
 
-                .form-row
-                    .col.form-group
-                        label Category:
-                        select.form-control(name="category")
-                            option(value="kitchen") Kitchen
-                            option(value="compound") Compound
-                            option(value="funiture") Funiture
+                    .form-row
+                        .col.form-group
+                            label Category:
+                            select.form-control(name="category")
+                                option(value="kitchen") Kitchen
+                                option(value="compound") Compound
+                                option(value="funiture") Funiture
+                                option(value="livingroom") Living Room
+                                option(value="bedroom") Bedroom
+                                option(value="bathroom") Bathroom
+                                option(value="electronics") Electronics
+                                option(value="school") School
 
-                .form-row.mt-2
-                    .col.form-group
-                        label Cost:
-                        input.form-control(name="productcost" type="text")
-                .form-row
-                    .col.form-group
-                        button.btn.btn-primary.btn-block Add Product
+                    .form-row.mt-2
+                        .col.form-group
+                            label Cost:
+                            input.form-control(name="productcost" type="text")
+                    .form-row
+                        .col.form-group
+                            button.btn.btn-primary.btn-block Add Product

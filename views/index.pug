@@ -1,37 +1,56 @@
 extends layout
 block content
-    .row
-        .col-sm-12.mt-4
-            .main-heading.mb-2
-                h4 Latest in the store
+    .jumbotron
+        .container
+            .row
+                .col-sm-8
+                    h3.display-4 Welcome to CovidStore
+                    p.lead At CovidStore, we are dedicated to providing affordable products that are also of their highest quality. We do not compromise on quality for price.
+                    hr.my-4
+                    p.small Our products have passed the quality test and ready for use.
+                    a.btn.btn-primary.btn-lg(href="/about" role="button") Find out more about us
+                .col-sm-4
+                    h6 Special Categories in Our CovidStore
+                    .list-group.shadow
+                        a.list-group-item.list-group-item-action(href="/")
+                            .d-flex.w-100.justify-content-between
+                                h5.mb-1 Kitchen
+                        a.list-group-item.list-group-item-action(href="/")
+                            .d-flex.w-100.justify-content-between
+                                h5.mb-1 Living Room
+                        a.list-group-item.list-group-item-action(href="/")
+                            .d-flex.w-100.justify-content-between
+                                h5.mb-1 Compound
+                        a.list-group-item.list-group-item-action(href="/")
+                            .d-flex.w-100.justify-content-between
+                                h5.mb-1 Bedroom
+                        a.list-group-item.list-group-item-action(href="/")
+                            .d-flex.w-100.justify-content-between
+                                h5.mb-1 School
+
+    .container
+        .row
+            .col-sm-12.mt-5.mb-5.text-center
+                h2 Our Products
+                p.lead Check out our range of products on show below
 
         .col-sm-12
             .card-deck
-                .card.rounded-0
-                    img(src="/uploads/productimage-1595276207856.jpg", alt="" class="img-fluid")
-                    .card-body
-                        h5.card-title.text-center
-                            a(href="/products/single-view") African Bees Honey
-                        button.btn.btn-good.btn-block Buy Now
-
-                .card.rounded-0
-                    img(src="/uploads/productimage-1595276207856.jpg", alt="" class="img-fluid")
-                    .card-body
-                        h5.card-title Card Title
-                        p.card-text This is a description
-                .card.rounded-0
-                    img(src="/uploads/productimage-1595276207856.jpg", alt="" class="img-fluid")
-                    .card-body
-                        h5.card-title Card Title
-                        p.card-text This is a description
-                .card.rounded-0
-                    img(src="/uploads/productimage-1595276207856.jpg", alt="" class="img-fluid")
-                    .card-body
-                        h5.card-title Card Title
-                        p.card-text This is a description
+                each product in products
+                    .card.rounded-0
+                        img(src='#{product.productimage}', alt="" class="img-fluid")
+                        .card-body
+                            .row
+                                .col-7
+                                    small.text-muted Category: #{product.category}
+                                .col-5
+                                    small Cost: #{product.productcost}/=
+                            h5.card-title
+                                a(href="/products/single-view") #{product.productname}
 
         .col-sm-12.mt-4
-            h4 Funiture
+            .main-heading.mb-2
+                h4 Funiture
             .card-deck
                 .card.rounded-0
                     img(src="/uploads/productimage-1595276207856.jpg", alt="" class="img-fluid")

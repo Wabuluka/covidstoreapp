@@ -4,6 +4,7 @@ const router = express.Router();
 
 
 const AdminModel = require('../models/admin.model');
+const productModel = require('../models/product.model');
 
 // default route that all clients access the app land on
 router.get('/', (req, res) =>{
@@ -85,7 +86,7 @@ router.post('/create', async (req, res) => {
                 res.redirect('admin')
             }
         }catch(error){
-
+            console.log(error)
         }
     })    
 })
@@ -93,8 +94,15 @@ router.post('/create', async (req, res) => {
 
 // get all products
 router.get('/products', (req, res) => {
-    res.render('admin/products')
+    // res.render('admin/products')
+    productModel.find({}, (error, result)=>{
+        if(error){
+            res.send(error)
+        }else{
+            // res.send(result)
+            res.render('admin/products', {title: 'All Products', products: result})
+        }
+    })
 })
  
-
 module.exports = router;

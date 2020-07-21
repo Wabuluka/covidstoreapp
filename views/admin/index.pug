@@ -1,27 +1,28 @@
 extends ../layout
 block content
-    .row
-        .col-12
-            h1 Admin Panel
-            p This is where the supreme manager of Covid Store controls the entire store
+    .container.top-margin-from-navigation
+        .row
+            .col-12
+                h1 Admin Panel
+                p This is where the supreme manager of Covid Store controls the entire store
 
-    .row.text-center
-        .col-sm-2
-            .card
-                .card-body
-                    a(href="/products/add-product") add product
+        .row.text-center
+            .col-sm-2
+                .card
+                    .card-body
+                        a(href="/products/add-product") add product
 
-        .col-sm-2
-            .card
-                .card-body
-                    a(href="/admin/products") view products
+            .col-sm-2
+                .card
+                    .card-body
+                        a(href="/admin/products") view products
 
-        .col-sm-2
-            .card
-                .card-body
-                    a(href="/admin/create") add manager
-        
-        .col-sm-2
-            .card
-                .card-body
-                    a(href="") view managers
+            .col-sm-2
+                .card
+                    .card-body
+                        a(href="/admin/create") add manager
+            
+            .col-sm-2
+                .card
+                    .card-body
+                        a(href="") view managers

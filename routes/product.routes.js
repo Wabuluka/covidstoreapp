@@ -13,15 +13,20 @@ router.get('/add-product', (req, res)=>{
 
 // post method for adding product to database
 router.post('/add-product', upload.single('productimage') ,async (req, res)=>{
+    const productid = await productModel.countDocuments({}) + 1
     const productname = req.body.productname
     const productimage = `/uploads/${req.file.filename}`
+    // const productimage = req.file
     const category = req.body.category
+    const productdescription = req.body.description
     const productcost = req.body.productcost
 
     const product = new productModel({
+        productid: productid,
         productname: productname,
         productimage: productimage,
         category: category,
+        productdescription: productdescription,
         productcost: productcost
     })
     try{
@@ -29,8 +34,7 @@ router.post('/add-product', upload.single('productimage') ,async (req, res)=>{
             if(error){
                 console.log(error);
             }
-            console.log(req.body)
-            console.log(req.file.filename)
+            console.log(result)
             res.redirect('/admin');
         })
     }catch(error){
@@ -39,8 +43,9 @@ router.post('/add-product', upload.single('productimage') ,async (req, res)=>{
 })
 
 // single view url
-router.get('/single-view', (req,res)=>{
-    res.render('single-view')
+router.get('/single-view/', (req,res)=>{
+    // res.render('single-view')
+    productModel.findById
 })
 
 
