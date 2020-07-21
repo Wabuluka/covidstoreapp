@@ -1,0 +1,38 @@
+extends ../layout
+block content
+    .row.mt-5
+        .col-sm-10
+            h5 Create New Product
+        .col-sm-2.text-right
+            a(href="/admin") return to admin
+    .row
+        .col-sm-7
+        .col-sm-5
+            header.card-header
+
+                h4.card-title Product Details
+            form(method="POST" action="/products/add-product" enctype="multipart/form-data")
+                .form-row.mt-2
+                    .col.form-group
+                        label Product Name:
+                        input.form-control(name="productname" type="text")
+                .form-row
+                    .col.form-group
+                        label Add Product Image:
+                        input.form-control-file(type="file" name="productimage")
+
+                .form-row
+                    .col.form-group
+                        label Category:
+                        select.form-control(name="category")
+                            option(value="kitchen") Kitchen
+                            option(value="compound") Compound
+                            option(value="funiture") Funiture
+
+                .form-row.mt-2
+                    .col.form-group
+                        label Cost:
+                        input.form-control(name="productcost" type="text")
+                .form-row
+                    .col.form-group
+                        button.btn.btn-primary.btn-block Add Product

@@ -1,0 +1,24 @@
+extends ../layout
+block content
+    .row.mt-2
+        .col-sm-10
+            h5 Products
+        .col-sm-2.text-right
+            a(href="/admin") return to admin    
+    .row.mt-3
+        table.table
+            thead.thead-dark
+                tr
+                    th(scope="col") #
+                    th(scope="col") Product Name
+                    th(scope="col") Unit Cost
+                    th(scope="col") Edit
+                    th(scope="col") Delete
+                tbody
+                    th(scope="row") 1
+                    td Kakira Sugar
+                    td 3500
+                    td 
+                        a(href="") edit
+                    td
+                        a(href="") delete

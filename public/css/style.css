@@ -1,0 +1,36 @@
+main{
+    min-height: 90vh;
+}
+nav{
+    background: rgb(253, 61, 3) !important;
+}
+nav a{
+    color: rgb(250, 246, 246);
+    font-weight: 700;
+}
+nav a:hover{
+    color: rgb(0, 0, 0);
+    transition: 0.8s;
+}
+.main-heading{
+    background: red;
+    padding: 10px;
+    color: rgb(250, 246, 246);
+}
+.card-body{
+    background: #cc1;
+}
+.card-body:hover{
+    background: rgb(204, 117, 17);
+    transition: 0.5s;
+}
+.btn-good{
+    background: rgb(253, 61, 3);
+    color: rgb(250, 246, 246);
+    font-weight: 700;
+}
+footer{
+    min-height: 10vh;
+    background: rgb(253, 61, 3);
+    color: rgb(250, 246, 246);
+}

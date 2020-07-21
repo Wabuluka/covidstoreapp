@@ -1,0 +1,28 @@
+extends ../layout
+block content
+    .row
+        .col-12
+            h1 Admin create manager 
+            p This is where a new manager is created
+
+    .row
+        .col-sm-7
+        .col-sm-5
+            header.card-header
+
+                h4.card-title Register
+            form(method="POST" action="/admin/create")
+
+                .form-row.mt-2
+                    .col.form-group
+                        label Email
+                        input.form-control(name="email" type="email")
+
+                .form-row
+                    .col.form-group
+                        label Assign Password
+                        input.form-control(type="password" name="password")
+
+                .form-row
+                    .col.form-group
+                    button.btn.btn-primary.btn-block Create Manager

@@ -1,0 +1,18 @@
+extends layout
+block content
+    .row
+        .col-12
+            h1 provide information
+
+        .col-12
+            form(method='POST' action="/quotes")
+                .form-group
+                    label Name:
+                    input.form-control(name='name', type='text')
+                .form-group
+                    label Email:
+                    input.form-control(name='name', type='email')
+                .form-group
+                    label Password:
+                    input.form-control(name='name', type='password')
+                input.btn.btn-primary(type='submit',value='Signup!')
