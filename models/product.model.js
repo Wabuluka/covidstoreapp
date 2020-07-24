@@ -6,7 +6,11 @@ const ProductSchema = mongoose.Schema({
     productname: {
         type: String
     },
-    productimage: String,
+    productimage:[
+        {
+            type: Buffer
+        }
+    ],
     productdescription: String,
     category: String,
     productcost: {

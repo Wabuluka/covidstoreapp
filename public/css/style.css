@@ -22,7 +22,7 @@ nav a:hover{
     border-radius: 0;
 }
 .main-heading{
-    background: red;
+    background: rgb(150, 149, 149);
     padding: 10px;
     color: rgb(250, 246, 246);
 }
@@ -40,6 +40,15 @@ nav a:hover{
 }
 .card-body{
     padding: 5px;
+}
+.card img{
+    height: 150px;
+}
+.cat{
+    font-size: 1em;
+}
+.cost{
+    font-size: 1em;
 }
 .card-body:hover{
     transition: 0.5s;

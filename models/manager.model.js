@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 
 const managerSchema = mongoose.Schema({
-    managernin:{
+    managerid: String,
+    firstname: String,
+    lastname: String,
+    nin:{
         type: String
     },
     email: {

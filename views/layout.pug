@@ -14,14 +14,16 @@ html(lang="en")
                 a.navbar-brand(href='/') Covid Store
 
         
+                ul.navbar-nav
+                    li.nav-item
+                        a.nav-link(href="/about") About    
                 ul.navbar-nav.ml-auto
                     li.nav-item
                         a.nav-link(href="/admin/login") Login
                     li.nav-item
                         a.nav-link(href="/admin/signup") Signup
 
-                    li.nav-item
-                        a.nav-link(href="/about") About                
+                                
 
         main
             block content

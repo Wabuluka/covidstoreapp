@@ -1,10 +1,20 @@
 const express = require('express');
+// const pass = require('../middleware/bcrypt');
+const bcrypt = require('bcryptjs')
+const passport = require('passport')
+
+
+
+
 
 const router = express.Router();
 
-
+// Admin Model
 const AdminModel = require('../models/admin.model');
+// Product Model
 const productModel = require('../models/product.model');
+// Manager Model
+const managerModel = require('../models/manager.model');
 
 // default route that all clients access the app land on
 router.get('/', (req, res) =>{
@@ -16,7 +26,7 @@ router.get('/signup', (req, res) =>{
     res.render('admin/admin-signup')
 })
 // (post) the admin signup url processing
-router.post('/signup', async(req, res)=>{
+router.post('/signup', (req, res)=>{
 
     const firstname = req.body.firstname
     const lastname = req.body.lastname
@@ -26,6 +36,7 @@ router.post('/signup', async(req, res)=>{
     const country = req.body.country
     const city = req.body.city
     const password = req.body.password
+
 
 
     const admin = new AdminModel({
@@ -38,16 +49,25 @@ router.post('/signup', async(req, res)=>{
         city: city,
         password: password
     })
-    try{
-        await admin.save((error, result) => {
-            if(error){
+    bcrypt.genSalt(10,  (err, salt)=>{
+        bcrypt.hash(admin.password, salt, (err, hash)=>{
+            if(err){
+                console.log(err);
+            }
+            admin.password = hash
+            try{
+                 admin.save((error, result) => {
+                    if(error){
+                        console.log(error);
+                    }
+                    res.redirect('/admin/login');
+                })
+            }catch(error){
                 console.log(error);
             }
-            res.redirect('/admin/login');
         })
-    }catch(error){
-        console.log(error);
-    }
+    })
+    
     
 })
 
@@ -57,25 +77,38 @@ router.get('/login', (req, res) =>{
 });
 
 // (post) the admin signup url processing
-router.post('/login', (req, res) => {
-    const query = req.body.email
-    AdminModel.findOne(query, (error, result) => {
-        if(error){
-            console.log(error)
-        }else{
-            res.redirect('/admin')
-        }
-    })
-})
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local', {
+        successRedirect: '/admin',
+        failureRedirect: '/admin/login',
+    })(req, res, next);
+});
 
 
 // get route for creating manager
 router.get('/create', (req, res)=>{
     res.render('admin/create-manager');
 })
-
+// post method for creating a manager
 router.post('/create', async (req, res) => {
-    const manager =  new Manager(req.body);
+    // const manager =  new Manager(req.body);
+    const managerid = await managerModel.countDocuments({}) + 1
+    const firstname = req.body.firstname
+    const lastname = req.body.lastname
+    const nin = req.body.nin
+    const email = req.body.email
+    const password = req.body.password
+
+    const hashedPassword = pass.hashPassword(password)
+    
+    const manager = new managerModel({
+        managerid: managerid,
+        firstname: firstname,
+        lastname: lastname,
+        nin: nin,
+        email: email,
+        password: hashedPassword
+    })
 
     await manager.save((error, result)=>{
         try{
@@ -83,7 +116,7 @@ router.post('/create', async (req, res) => {
                 console.log(error)
             }else{
                 console.log(manager)
-                res.redirect('admin')
+                res.redirect('/admin')
             }
         }catch(error){
             console.log(error)
