@@ -3,14 +3,15 @@ block content
     .container.top-margin-from-navigation 
         .row
             .col-sm-12.mt-4
-                h4 Product Name: 
+                h4 Product Name: #{singleProduct.productname}
 
         .row.mt-2
             .col-sm-5
-                img(src="/uploads/productimage-1595276207856.jpg", alt="" class="img-fluid")
+                - var url = singleProduct.productimage
+                img(src=('/uploads/' + url), alt="" class="img-fluid")
             .col-sm-7
                 h3 Product Description
-                p Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit vero quod totam laboriosam nam. Ipsam doloribus dolorem, tempora repellat dicta culpa a, quibusdam voluptate, laboriosam ratione optio voluptates laborum consectetur?
+                p #{singleProduct.productdescription}
 
         .row.mt-2
             .col-sm-10

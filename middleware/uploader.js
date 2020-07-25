@@ -27,5 +27,5 @@ function checkFileType(file, cb){
     }else{
         cb('Error: Images Only')
     }
-} 
+}
 module.exports = upload;

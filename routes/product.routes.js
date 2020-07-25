@@ -42,11 +42,7 @@ router.post('/add-product', upload.single('productimage') ,async (req, res)=>{
     }
 })
 
-// single view url
-router.get('/single-view/', (req,res)=>{
-    // res.render('single-view')
-    productModel.findById
-})
+ 
 
 
 module.exports = router;

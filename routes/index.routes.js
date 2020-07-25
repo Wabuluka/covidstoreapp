@@ -21,6 +21,18 @@ router.get('/', async(req, res) =>{
     
 })
 
+// view a single product
+router.get('/product/:id', (req,res)=>{
+    // res.render('single-view')
+    productModel.findById(req.params.id, (err, product)=>{
+        if(err){
+            console.log(err)
+        }else{
+            res.render('single-view', {singleProduct: product})
+        }
+    })
+})
+
 router.get('/about', (req, res) => {
     res.render('about')
 })
