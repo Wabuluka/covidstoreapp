@@ -7,18 +7,18 @@ const passport = require('passport')
 
 
 
+
 const router = express.Router();
 
-// Admin Model
-const AdminModel = require('../models/admin.model');
 // Product Model
 const productModel = require('../models/product.model');
 // Manager Model
 const managerModel = require('../models/manager.model');
+const userModel = require('../models/admin.model');
 
 // default route that all clients access the app land on
 router.get('/', (req, res) =>{
-    res.render('admin/index')
+    res.render('admin/index', {name: req.user.id})
 })
 
 // get the admin signup url
@@ -37,9 +37,7 @@ router.post('/signup', (req, res)=>{
     const city = req.body.city
     const password = req.body.password
 
-
-
-    const admin = new AdminModel({
+    let user = new userModel({
         firstname: firstname,
         lastname: lastname,
         username: username,
@@ -48,41 +46,24 @@ router.post('/signup', (req, res)=>{
         country: country,
         city: city,
         password: password
+    });
+    user.save(function(err){
+        if(err){
+            console.log(err)
+            return
+        }else{
+            res.redirect('/admin/login')
+        }
     })
-    bcrypt.genSalt(10,  (err, salt)=>{
-        bcrypt.hash(admin.password, salt, (err, hash)=>{
-            if(err){
-                console.log(err);
-            }
-            admin.password = hash
-            try{
-                 admin.save((error, result) => {
-                    if(error){
-                        console.log(error);
-                    }
-                    res.redirect('/admin/login');
-                })
-            }catch(error){
-                console.log(error);
-            }
-        })
-    })
-    
-    
 })
 
 // get the admin login url
 router.get('/login', (req, res) =>{
     res.render('admin/admin-login')
 });
-
 // (post) the admin signup url processing
-router.post('/login', (req, res, next) => {
-    passport.authenticate('local', {
-        successRedirect: '/admin',
-        failureRedirect: '/admin/login',
-    })(req, res, next);
-});
+router.post('/login',
+);
 
 
 // get route for creating manager
@@ -99,7 +80,6 @@ router.post('/create', async (req, res) => {
     const email = req.body.email
     const password = req.body.password
 
-    const hashedPassword = pass.hashPassword(password)
     
     const manager = new managerModel({
         managerid: managerid,

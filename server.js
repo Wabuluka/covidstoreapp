@@ -2,9 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose = require('mongoose');
-
-
+const flash = require('express-flash')
+const session = require('express-session')
+const passport = require('passport')
 const config = require('./config/database');
+
+const Admin = require('./models/admin.model')
 // mongodb
 mongoose.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true} );
 let mongoDb = mongoose.connection;
@@ -23,6 +26,25 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Load View Engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+
+
+app.use(flash())
+app.use(session({
+    secret: `process.env.SESSION_SECRET`,
+    resave: false,
+    saveUninitialized: false
+}))
+
+
+// Passport Config
+// require('./middleware/authentication')(passport);
+app.use(passport.initialize())
+app.use(passport.session())
+
+passport.use(Admin.createStrategy())
+passport.serializeUser(Admin.serializeUser())
+passport.deserializeUser(Admin.deserializeUser())
+
 // routes
 let indexRoutes = require('./routes/index.routes');
 let adminRoutes = require('./routes/admin.routes');

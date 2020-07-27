@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const passportLocalMongoose = require('passport-local-mongoose');
 
 // Admin Schema
 const AdminSchema = mongoose.Schema({
@@ -24,4 +24,5 @@ const AdminSchema = mongoose.Schema({
     }
 })
 
-const Admin =  module.exports = mongoose.model('Admin', AdminSchema);
+AdminSchema.plugin(passportLocalMongoose);
+module.exports = mongoose.model('Admin', AdminSchema);
