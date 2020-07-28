@@ -11,6 +11,10 @@ const AdminSchema = mongoose.Schema({
         required: true,
         unique: true
     },
+    email: {
+        type: String,
+        unique: true
+    },
     nin:String,
     role: String,
     gender: String,
@@ -19,7 +23,8 @@ const AdminSchema = mongoose.Schema({
     password:{
         type: String,
         required: true,
-    }
+    },
+    createdby: String
 })
 
 // AdminSchema.plugin(passportLocalMongoose);

@@ -2,40 +2,61 @@ extends ../layout
 block content
     .container.top-margin-from-navigation
         .row
-            .col-sm-10
-                h5 Create Manager
-            .col-sm-2.text-right
-                a(href="/admin") return to admin
-
-        .row
             .col-sm-7
+                h1 Manager Registration 
+                p This is where a new Supreme manager creates his or her account
             .col-sm-5
                 header.card-header
-                    h4.card-title Register Manager
 
-                form(method="POST" action="/admin/create")
+                    h4.card-title Manager Registeration Form
+                form(method="POST" action="/admin/manager/create")
                     .form-row.mt-2
+
                         .col.form-group
-                            label First Name:
+                            label First name
                             input.form-control(name="firstname" type="text")
-                        .col.form-group
-                            label Last Name:
-                            input.form-control(name="lastname" type="text")
-                    .form-row.mt-2
-                        .col.form-group
-                            label NIN:
-                            input.form-control(name="nin" type="text")
 
-                    .form-row.mt-2
+                        .col.form-group
+                            label Last name
+                            input.form-control(name="lastname" type="text")
+
+                    .form-row
                         .col.form-group
                             label Email
                             input.form-control(name="email" type="email")
 
                     .form-row
                         .col.form-group
-                            label Assign Password
+                            label Username
+                            input.form-control(name="username" type="text")
+                        .col.form-group
+                            label NIN
+                            input.form-control(name="nin" type="text")
+
+                    .form-row
+                        .col.form-group
+                            label.form-check.form-check-inline                   
+                                input.form-check-input(type="radio" name="gender" value="female")
+                                span.form-check-label Female 
+                            label.form-check.form-check-inline
+                                input.form-check-input(type="radio" name="gender" value="male")
+                                span.form-check-label Male
+
+                    .form-row
+                        .col.form-group
+                            label Country 
+                            input.form-control(name="country")
+                        .col.form-group
+                            label City
+                            select.form-control(name="city")
+                                option(value="Kabale") Kabale
+                                option(value="Wakiso") Wakiso
+                                option(value="Mbale") Mbale
+                    .form-row
+                        .col.form-group
+                            label Create Password
                             input.form-control(type="password" name="password")
 
                     .form-row
                         .col.form-group
-                        button.btn.btn-primary.btn-block Create Manager
+                            button.btn.btn-primary.btn-block Register

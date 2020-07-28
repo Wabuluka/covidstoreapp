@@ -2,16 +2,13 @@ extends ../layout
 block content
     .container.top-margin-from-navigation
         .row
-            .col-12
-                h1 Admin Sign Up 
-                p This is where a new Supreme manager creates his or her account
-
-        .row
             .col-sm-7
+                h1 Admin Registration 
+                p This is where a new Supreme manager creates his or her account
             .col-sm-5
                 header.card-header
 
-                    h4.card-title Register
+                    h4.card-title Admin Registeration Form
                 form(method="POST" action="/admin/signup")
                     .form-row.mt-2
 
@@ -25,8 +22,16 @@ block content
 
                     .form-row
                         .col.form-group
+                            label Email
+                            input.form-control(name="email" type="email")
+
+                    .form-row
+                        .col.form-group
                             label Username
                             input.form-control(name="username" type="text")
+                        .col.form-group
+                            label NIN
+                            input.form-control(name="nin" type="text")
 
                     .form-row
                         .col.form-group

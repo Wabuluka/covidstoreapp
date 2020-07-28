@@ -46,12 +46,12 @@ app.use(passport.session())
 let indexRoutes = require('./routes/index.routes');
 let adminRoutes = require('./routes/admin.routes');
 let productRoutes = require('./routes/product.routes')
-let managerRoutes = require('./routes/manager.routes');
+// let managerRoutes = require('./routes/manager.routes');
 
 app.use('/', indexRoutes);
 app.use('/admin', adminRoutes);
 app.use('/products', productRoutes);
-app.use('/manager', managerRoutes);
+// app.use('/manager', managerRoutes);
 
 
 app.get('*', (req, res)=>{
