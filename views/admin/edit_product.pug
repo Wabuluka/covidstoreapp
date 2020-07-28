@@ -1,0 +1,45 @@
+extends ../layout
+block content
+    .container.top-margin-from-navigation
+        .row.mt-5
+            .col-sm-10
+                h5 Edit Product
+            .col-sm-2.text-right
+                a(href="/admin") return to admin
+        .row
+            .col-sm-7
+            .col-sm-5
+                header.card-header
+
+                    h4.card-title Product Details
+                form(method="POST" action="/admin/products/edit/ "+singleProduct._id)
+                    .form-row.mt-2
+                        .col.form-group
+                            label Product Name:
+                            input.form-control(name="productname" type="text" value=singleProduct.productname)
+                    .form-row
+                        .col.form-group
+                            label Product Description
+                            textarea.form-control(name="description", cols="30", rows="5")= singleProduct.description
+
+                    .form-row
+                        .col.form-group
+                            label Category:
+                            select.form-control(name="category")
+                                option(value=singleProduct.category) #{singleProduct.category}
+                                option(value="kitchen") Kitchen
+                                option(value="compound") Compound
+                                option(value="funiture") Funiture
+                                option(value="livingroom") Living Room
+                                option(value="bedroom") Bedroom
+                                option(value="bathroom") Bathroom
+                                option(value="electronics") Electronics
+                                option(value="school") School
+
+                    .form-row.mt-2
+                        .col.form-group
+                            label Cost:
+                            input.form-control(name="productcost" type="text" value=singleProduct.productcost)
+                    .form-row
+                        .col.form-group
+                            button.btn.btn-primary.btn-block Edit Product

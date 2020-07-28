@@ -24,8 +24,9 @@ block content
                             td #{product.productname}
                             td #{product.category}
                             td #{product.productcost}
-                            td 
-                                a(href="") edit
+                            td  
+                                - var productId = product._id
+                                a(href=('/admin/products/edit/' + productId)) edit
                             td
                                 a(href="") delete
 

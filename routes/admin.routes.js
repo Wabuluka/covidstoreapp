@@ -158,5 +158,36 @@ router.get('/products', (req, res) => {
         }
     })
 })
+
+// get route for editing a product
+router.get('/products/edit/:id',(req, res)=>{
+    productModel.findById(req.params.id, (err, product)=>{
+        if(err){
+            console.log(err)
+        }else{
+            res.render('admin/edit_product', {singleProduct: product})
+        }
+    })
+})
+
+// post route for editing the product details
+router.post('/products/edit/:id', async (req, res)=>{
+    let product = {}
+    product.productname = req.body.productname
+    product.description = req.body.description
+    product.category = req.body.category
+    product.productcost = req.body.productcost
+
+    let query = {_id: req.params.id}
+
+    await productModel.findByIdAndUpdate(query, product, (err)=>{
+        if(err){
+            console.log(err);
+            return;
+        }else{
+            res.redirect('/admin/products')
+        }
+    })
+})
  
 module.exports = router;
