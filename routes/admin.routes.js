@@ -1,11 +1,6 @@
 const express = require('express');
-// const pass = require('../middleware/bcrypt');
 const bcrypt = require('bcryptjs')
 const passport = require('passport')
-
-
-
-
 
 
 const router = express.Router();
@@ -15,10 +10,11 @@ const productModel = require('../models/product.model');
 // Manager Model
 const managerModel = require('../models/manager.model');
 const userModel = require('../models/admin.model');
+const { route } = require('./index.routes');
 
 // default route that all clients access the app land on
 router.get('/', (req, res) =>{
-    res.render('admin/index', {name: req.user.id})
+    res.render('admin/index')
 })
 
 // get the admin signup url
@@ -46,15 +42,26 @@ router.post('/signup', (req, res)=>{
         country: country,
         city: city,
         password: password
-    });
-    user.save(function(err){
-        if(err){
-            console.log(err)
-            return
-        }else{
-            res.redirect('/admin/login')
-        }
     })
+
+    bcrypt.genSalt(10, function(err, salt){
+        bcrypt.hash(user.password, salt, function(err, hash){
+            if(err){
+                console.log(err)
+            }
+            user.password = hash;
+            user.save(function(err){
+                if(err){
+                    console.log(err);
+                    return;
+                }else{
+                    res.redirect('/admin/login');
+                }
+            })
+        })
+    })
+    
+    
 })
 
 // get the admin login url
@@ -62,14 +69,23 @@ router.get('/login', (req, res) =>{
     res.render('admin/admin-login')
 });
 // (post) the admin signup url processing
-router.post('/login',
-);
+router.post('/login', function(req, res, next){
+    passport.authenticate('local', {
+        successRedirect: '/admin',
+        failureRedirect: '/admin/login'
+    })(req, res, next)
+})
 
+// route to logout
+router.get('/logout', (req, res)=>{
+    
+})
 
 // get route for creating manager
 router.get('/create', (req, res)=>{
     res.render('admin/create-manager');
 })
+
 // post method for creating a manager
 router.post('/create', async (req, res) => {
     // const manager =  new Manager(req.body);
@@ -87,7 +103,7 @@ router.post('/create', async (req, res) => {
         lastname: lastname,
         nin: nin,
         email: email,
-        password: hashedPassword
+        password: password
     })
 
     await manager.save((error, result)=>{
