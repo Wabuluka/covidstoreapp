@@ -38,9 +38,9 @@ nav a:hover{
 .card-title a{
     color: rgb(7, 6, 6);
 }
-.card-body{
+/* .card-body{
     padding: 5px;
-}
+} */
 .card img{
     height: 150px;
 }
@@ -58,6 +58,10 @@ nav a:hover{
     color: rgb(250, 246, 246);
     font-weight: 700;
 }
+
+/* admin signup css */
+
+
 footer{
     min-height: 10vh;
     background: rgb(238, 211, 203) ;

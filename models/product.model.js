@@ -15,7 +15,8 @@ const ProductSchema = mongoose.Schema({
     category: String,
     productcost: {
         type: String,
-    }
+    },
+    createdby: String
 })
 // Shifa Arinaitwe
 
