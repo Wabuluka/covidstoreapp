@@ -1,6 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs')
 const passport = require('passport')
+const mongoose = require('mongoose')
 
 
 const router = express.Router();
@@ -14,7 +15,7 @@ const { route } = require('./index.routes');
 
 
 // default route that all clients access the app land on
-router.get('/', (req, res) =>{
+router.get('/', ensureAuthenticated, (req, res) =>{
     res.render('admin/index')
 })
 
@@ -85,16 +86,16 @@ router.post('/login', function(req, res, next){
 
 // route to logout
 router.get('/logout', (req, res)=>{
-    
+    req.lo
 })
 
 // Manager Registration
-router.get('/manager/create', (req, res)=>{
+router.get('/manager/create', ensureAuthenticated,  (req, res)=>{
     res.render('admin/create-manager')
 })
 
 // Manager Registration Post Route
-router.post('/manager/create', async (req, res)=>{
+router.post('/manager/create', ensureAuthenticated, async (req, res)=>{
 
     // Get user logged in
     // let loggedUser = req.user
@@ -147,7 +148,7 @@ router.post('/manager/create', async (req, res)=>{
 
 
 // get all products
-router.get('/products', (req, res) => {
+router.get('/products', ensureAuthenticated, (req, res) => {
     // res.render('admin/products')
     productModel.find({}, (error, result)=>{
         if(error){
@@ -160,7 +161,7 @@ router.get('/products', (req, res) => {
 })
 
 // get route for editing a product
-router.get('/products/edit/:id',(req, res)=>{
+router.get('/products/edit/:id',ensureAuthenticated, (req, res)=>{
     productModel.findById(req.params.id, (err, product)=>{
         if(err){
             console.log(err)
@@ -171,16 +172,16 @@ router.get('/products/edit/:id',(req, res)=>{
 })
 
 // post route for editing the product details
-router.post('/products/edit/:id', async (req, res)=>{
-    let product = {}
-    product.productname = req.body.productname
-    product.description = req.body.description
-    product.category = req.body.category
-    product.productcost = req.body.productcost
+router.post('/products/edit/:id', ensureAuthenticated, (req, res)=>{
+    let product = {
+        productname :req.body.productname,
+        description :req.body.description,
+        category :req.body.category,
+        productcost :req.body.productcost
+    }
+    let query = mongoose.Types.ObjectId(req.params.id)
 
-    let query = {_id: req.params.id}
-
-    await productModel.findByIdAndUpdate(query, product, (err)=>{
+    productModel.update(query, product, (err, updatedProduct)=>{
         if(err){
             console.log(err);
             return;
@@ -189,5 +190,14 @@ router.post('/products/edit/:id', async (req, res)=>{
         }
     })
 })
+// Access Control
+function ensureAuthenticated(req, res, next){
+    if(req.isAuthenticated()){
+      return next();
+    } else {
+      req.flash('danger', 'Please login');
+      res.redirect('/admin/login');
+    }
+}
  
 module.exports = router;

@@ -7,12 +7,12 @@ const upload =  require('../middleware/uploader');
 
 
 // get the add product page
-router.get('/add-product', (req, res)=>{
+router.get('/add-product', ensureAuthenticated,  (req, res)=>{
     res.render('admin/add-product')
 })
 
 // post method for adding product to database
-router.post('/add-product', upload.single('productimage') ,async (req, res)=>{
+router.post('/add-product', ensureAuthenticated, upload.single('productimage') ,async (req, res)=>{
 
     // Get user logged in
     const user = req.user
@@ -48,6 +48,15 @@ router.post('/add-product', upload.single('productimage') ,async (req, res)=>{
 })
 
  
-
+// Access Control
+function ensureAuthenticated(req, res, next){
+    if(req.isAuthenticated()){
+      return next();
+    } else {
+      req.flash('danger', 'Please login');
+      res.redirect('/admin/login');
+    }
+}
+  
 
 module.exports = router;
