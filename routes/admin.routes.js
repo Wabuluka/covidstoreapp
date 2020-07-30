@@ -173,15 +173,15 @@ router.get('/products/edit/:id',ensureAuthenticated, (req, res)=>{
 
 // post route for editing the product details
 router.post('/products/edit/:id', ensureAuthenticated, (req, res)=>{
-    let product = {
-        productname :req.body.productname,
-        description :req.body.description,
-        category :req.body.category,
-        productcost :req.body.productcost
-    }
-    let query = mongoose.Types.ObjectId(req.params.id)
 
-    productModel.update(query, product, (err, updatedProduct)=>{
+    productModel.updateOne( { _id: req.params.id },         {
+        $set: {
+            productname :req.body.productname,
+            description :req.body.description,
+            category :req.body.category,
+            productcost :req.body.productcost
+        }
+    }, (err, updatedProduct)=>{
         if(err){
             console.log(err);
             return;
