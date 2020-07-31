@@ -7,27 +7,34 @@ block content
             .col-sm-2.text-right
                 a(href="/admin") return to admin
         .row
-            .col-sm-7
-            .col-sm-5
-                header.card-header
-
-                    h4.card-title Product Details
+            .col-sm-2
+            .col-sm-8
                 form(method="POST" action="/admin/products/edit/"+singleProduct._id)
                     .form-row.mt-2
+                        .col.form-group
+                            label Product Serial:
+                            input.form-control(name="serial" type="text" value=singleProduct.serial)
                         .col.form-group
                             label Product Name:
                             input.form-control(name="productname" type="text" value=singleProduct.productname)
                     .form-row
                         .col.form-group
                             label Product Description
-                            textarea.form-control(name="description", cols="30", rows="5")= singleProduct.description
+                            textarea.form-control(name="description", cols="30", rows="5")
 
                     .form-row
+                        .col.form-group
+                            label Color:
+                            select.form-control(name="color")
+                                option(value=singleProduct.color) #{singleProduct.color}
+                                option(value="black") Black
+                                option(value="white") White
+                                option(value="black&white") Back and White
+                                option(value="other") Other
                         .col.form-group
                             label Category:
                             select.form-control(name="category")
                                 option(value=singleProduct.category) #{singleProduct.category}
-                                option(value="kitchen") Kitchen
                                 option(value="compound") Compound
                                 option(value="funiture") Funiture
                                 option(value="livingroom") Living Room
@@ -35,6 +42,12 @@ block content
                                 option(value="bathroom") Bathroom
                                 option(value="electronics") Electronics
                                 option(value="school") School
+                        .col.form-group
+                            label Make:
+                            select.form-control(name="make")
+                                option(value=singleProduct.make) #{singleProduct.make}
+                                option(value="fr") Foreign
+
 
                     .form-row.mt-2
                         .col.form-group

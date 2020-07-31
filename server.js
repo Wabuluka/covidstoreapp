@@ -37,10 +37,22 @@ app.use(session({
     saveUninitialized: false
 }))
 
+// Express Messages Middleware
+app.use(require('connect-flash')());
+app.use(function (req, res, next) {
+  res.locals.messages = require('express-messages')(req, res);
+  next();
+});
+
 // Passport Configuration
 require('./middleware/authentication')(passport);
 app.use(passport.initialize())
 app.use(passport.session())
+
+app.get('*', function(req, res, next){
+    res.locals.user = req.user || null;
+    next();
+});
 
 // routes
 let indexRoutes = require('./routes/index.routes');
@@ -51,7 +63,6 @@ let productRoutes = require('./routes/product.routes')
 app.use('/', indexRoutes);
 app.use('/admin', adminRoutes);
 app.use('/products', productRoutes);
-// app.use('/manager', managerRoutes);
 
 
 app.get('*', (req, res)=>{

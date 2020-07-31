@@ -18,15 +18,28 @@ html(lang="en")
                     li.nav-item
                         a.nav-link(href="/about") About    
                 ul.navbar-nav.ml-auto
-                    li.nav-item
-                        a.nav-link(href="/admin/login") Login
-                    li.nav-item
-                        a.nav-link(href="/admin/signup") Signup
+
+                    if user
+                        li.nav-item
+                            a.nav-link(href="/admin") Dashboard
+                        li.nav-item
+                            a.nav-link(href="/admin/logout") Logout
+                    else
+                        li.nav-item
+                            a.nav-link(href="/admin/login") Login
 
                                 
 
         main
             block content
+
+                .container
+                    .row
+                        .col
+                            != messages('message', locals)
+                            if errors
+                                each error, i in errors
+                                    div(class="alert alert-danger") #{error.msg}
 
         footer.mt-3
             .container

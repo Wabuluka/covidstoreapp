@@ -1,17 +1,13 @@
 const express = require('express');
 const bcrypt = require('bcryptjs')
 const passport = require('passport')
-const mongoose = require('mongoose')
-
 
 const router = express.Router();
 
 // Product Model
 const productModel = require('../models/product.model');
-// Manager Model
-const managerModel = require('../models/manager.model');
-const userModel = require('../models/admin.model');
-const { route } = require('./index.routes');
+const User = require('../models/admin.model');
+const flash = require('express-flash');
 
 
 // default route that all clients access the app land on
@@ -26,7 +22,7 @@ router.get('/signup', (req, res) =>{
 // (post) the admin signup url processing
 router.post('/signup', async (req, res)=>{
 
-    const userid = await managerModel.countDocuments({}) + 1
+    const userid = await User.countDocuments({}) + 1
     const firstname = req.body.firstname
     const lastname = req.body.lastname
     const username = req.body.username
@@ -38,36 +34,45 @@ router.post('/signup', async (req, res)=>{
     const city = req.body.city
     const password = req.body.password
 
-    let user = new userModel({
-        userid: userid,
-        firstname: firstname,
-        lastname: lastname,
-        username: username,
-        email: email,
-        nin: nin,
-        role: role,
-        gender: gender,
-        country: country,
-        city: city,
-        password: password
-    })
-
-    bcrypt.genSalt(10, function(err, salt){
-        bcrypt.hash(user.password, salt, function(err, hash){
-            if(err){
-                console.log(err)
-            }
-            user.password = hash;
-            user.save(function(err){
+    // check if user already exists
+    if(User.findOne(username)){
+        req.flash('Username already taken');
+        res.redirect('/admin/signup')
+    }
+    try{
+        let user = new User({
+            userid: userid,
+            firstname: firstname,
+            lastname: lastname,
+            username: username,
+            email: email,
+            nin: nin,
+            role: role,
+            gender: gender,
+            country: country,
+            city: city,
+            password: password
+        })
+    
+        bcrypt.genSalt(10, function(err, salt){
+            bcrypt.hash(user.password, salt, function(err, hash){
                 if(err){
-                    console.log(err);
-                    return;
-                }else{
-                    res.redirect('/admin/login');
+                    console.log(err)
                 }
+                user.password = hash;
+                user.save(function(err){
+                    if(err){
+                        console.log(err);
+                        return;
+                    }else{
+                        res.redirect('/admin/login');
+                    }
+                })
             })
         })
-    })
+    }catch(error){
+        console.log(error)
+    }
     
     
 })
@@ -86,7 +91,9 @@ router.post('/login', function(req, res, next){
 
 // route to logout
 router.get('/logout', (req, res)=>{
-    req.lo
+    req.logout();
+    req.flash('success', 'You are logged out')
+    res.redirect('/admin/login')
 })
 
 // Manager Registration
@@ -99,7 +106,7 @@ router.post('/manager/create', ensureAuthenticated, async (req, res)=>{
 
     // Get user logged in
     // let loggedUser = req.user
-    const userid = await managerModel.countDocuments({}) + 1
+    const userid = await User.countDocuments({}) + 1
     const firstname = req.body.firstname
     const lastname = req.body.lastname
     const username = req.body.username
@@ -111,8 +118,11 @@ router.post('/manager/create', ensureAuthenticated, async (req, res)=>{
     const city = req.body.city
     const password = req.body.password
     // const createdby = loggedUser._id
+    
+    // check for availability of the user
 
-    let user = new userModel({
+
+    let user = new User({
         userid: userid,
         firstname: firstname,
         lastname: lastname,
@@ -178,6 +188,9 @@ router.post('/products/edit/:id', ensureAuthenticated, (req, res)=>{
         $set: {
             productname :req.body.productname,
             description :req.body.description,
+            make: req.body.make,
+            color: req.body.color,
+            numberinstock: req.body.instock,
             category :req.body.category,
             productcost :req.body.productcost
         }

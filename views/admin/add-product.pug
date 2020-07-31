@@ -7,17 +7,23 @@ block content
             .col-sm-2.text-right
                 a(href="/admin") return to admin
         .row
-            .col-sm-7
-            .col-sm-5
-                header.card-header
-
-                    h4.card-title Product Details
+            .col-sm-2
+            .col-sm-8
+                
                 form(method="POST" action="/products/add-product" enctype="multipart/form-data")
                     .form-row.mt-2
+                        .col.form-group
+                            label Product Serial:
+                            input.form-control(name="serial" type="text")
                         .col.form-group
                             label Product Name:
                             input.form-control(name="productname" type="text")
                     .form-row
+                        .col.form-group
+                            label Make:
+                            select.form-control(name="make")
+                                option(value="ug") UG
+                                option(value="fr") Foreign
                         .col.form-group
                             label Add Product Image:
                             input.form-control-file(type="file" name="productimage")
@@ -27,6 +33,13 @@ block content
                             textarea.form-control(name="description", cols="30", rows="5")
 
                     .form-row
+                        .col.form-group
+                            label Color:
+                            select.form-control(name="color")
+                                option(value="black") Black
+                                option(value="white") White
+                                option(value="black&white") Back and White
+                                option(value="other") Other
                         .col.form-group
                             label Category:
                             select.form-control(name="category")
@@ -38,6 +51,10 @@ block content
                                 option(value="bathroom") Bathroom
                                 option(value="electronics") Electronics
                                 option(value="school") School
+                        .col.form-group
+                            label Number in stock:
+                            input.form-control(type="number" name="instock")
+
 
                     .form-row.mt-2
                         .col.form-group
@@ -46,3 +63,5 @@ block content
                     .form-row
                         .col.form-group
                             button.btn.btn-primary.btn-block Add Product
+
+            .col-sm-2

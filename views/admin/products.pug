@@ -11,19 +11,23 @@ block content
             table.table
                 thead.thead-dark
                     tr
-                        th(scope="col") #
+                        th(scope="col") Serial
                         th(scope="col") Product Name
                         th(scope="col") Category
+                        th(scope="col") Color
                         th(scope="col") Unit Cost
+                        th(scope="col") Installment
                         th(scope="col") Edit
                         th(scope="col") Delete
                         
                     each product in products
                         tbody
-                            th(scope="row") 
+                            td #{product.serial}
                             td #{product.productname}
                             td #{product.category}
+                            td #{product.color}
                             td #{product.productcost}
+                            td #{product.initialpay}
                             td  
                                 - var productId = product._id
                                 a(href=('/admin/products/edit/' +productId)) edit
