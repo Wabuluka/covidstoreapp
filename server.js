@@ -9,7 +9,12 @@ const config = require('./config/database');
 const passport = require('passport')
 const User = require('./models/admin.model')
 // mongodb
-mongoose.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true} );
+mongoose.connect(config.db, {
+    useNewUrlParser: true, 
+    useUnifiedTopology: true, 
+    useCreateIndex: true
+    } 
+);
 let mongoDb = mongoose.connection;
 
 mongoDb.once('open', function(){
@@ -39,7 +44,7 @@ app.use(session({
 
 // Express Messages Middleware
 app.use(require('connect-flash')());
-app.use(function (req, res, next) {
+app.use((req, res, next)=> {
   res.locals.messages = require('express-messages')(req, res);
   next();
 });
@@ -49,7 +54,7 @@ require('./middleware/authentication')(passport);
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.get('*', function(req, res, next){
+app.get('*', (req, res, next)=>{
     res.locals.user = req.user || null;
     next();
 });
