@@ -39,10 +39,10 @@ router.post('/signup', async (req, res)=>{
     const password = req.body.password
 
     // check if user already exists
-    if(User.findOne(username)){
-        req.flash('Username already taken');
-        res.redirect('/admin/signup')
-    }
+    // if(User.findOne(username)){
+    //     req.flash('Username already taken');
+    //     res.redirect('/admin/signup')
+    // }
     try{
         let user = new User({
             userid: userid,
@@ -150,9 +150,8 @@ router.post('/manager/create', ensureAuthenticated, async (req, res)=>{
             user.save(function(err){
                 if(err){
                     console.log(err);
-                    return;
                 }else{
-                    res.redirect('/admin');
+                    res.render('/admin');
                 }
             })
         })
@@ -201,7 +200,6 @@ router.post('/products/edit/:id', ensureAuthenticated, (req, res)=>{
     }, (err, updatedProduct)=>{
         if(err){
             console.log(err);
-            return;
         }else{
             res.redirect('/admin/products')
         }

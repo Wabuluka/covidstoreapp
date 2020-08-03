@@ -6,32 +6,37 @@ block content
                 h1 Admin Registration 
                 p This is where a new Supreme manager creates his or her account
             .col-sm-5
-                header.card-header
+                header
 
-                    h4.card-title Admin Registeration Form
-                form(method="POST" action="/admin/signup")
+                    h3 Registeration Form
+                form(method="POST" action="/admin/signup" name="signupForm" onsubmit="return validateForm()")
                     .form-row.mt-2
 
                         .col.form-group
                             label First name
                             input.form-control(name="firstname" type="text")
+                            #firstnameError.error
 
                         .col.form-group
                             label Last name
                             input.form-control(name="lastname" type="text")
+                            #lastnameError.error
 
                     .form-row
                         .col.form-group
                             label Email
                             input.form-control(name="email" type="email")
+                            #emailError.error
 
                     .form-row
                         .col.form-group
                             label Username
                             input.form-control(name="username" type="text")
+                            #usernameError.error
                         .col.form-group
                             label NIN
                             input.form-control(name="nin" type="text")
+                            #ninError.error
 
                     .form-row
                         .col.form-group
@@ -41,11 +46,15 @@ block content
                             label.form-check.form-check-inline
                                 input.form-check-input(type="radio" name="gender" value="male")
                                 span.form-check-label Male
+                        .col.form-group
+                            #genderError.error
 
                     .form-row
                         .col.form-group
                             label Country 
                             input.form-control(name="country")
+                            #countryError.error
+
                         .col.form-group
                             label City
                             select.form-control(name="city")
@@ -56,6 +65,13 @@ block content
                         .col.form-group
                             label Create Password
                             input.form-control(type="password" name="password")
+                            #passwordError.error
+
+                    .form-row
+                        .col.form-group
+                            label Comfirm Password
+                            input.form-control(type="password" name="password2")
+                            #password2Error.error
 
                     .form-row
                         .col.form-group

@@ -58,7 +58,11 @@ nav a:hover{
     color: rgb(250, 246, 246);
     font-weight: 700;
 }
-
+/* erros */
+.error {
+    color: red;
+    font-size: 70%;
+}
 /* admin signup css */
 
 

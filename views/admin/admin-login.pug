@@ -10,15 +10,17 @@ block content
                 header.card-header
 
                     h4.card-title Login
-                form(method="POST" action="/admin/login")
+                form(method="POST" action="/admin/login" name="loginForm" onsubmit="return validateLogin()")
                     .form-row.mt-2
                         .col.form-group
                             label Username
                             input.form-control(name="username" type="text")
+                            #usernameError.error
                     .form-row
                         .col.form-group
                             label Password
                             input.form-control(type="password" name="password")
+                            #passwordError.error
                     .form-row
                         .col.form-group
                             button.btn.btn-primary.btn-block Login
