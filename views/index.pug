@@ -12,66 +12,37 @@ block content
                 .col-sm-4
                     h6 Special Categories in Our CovidStore
                     .list-group.shadow
-                        a.list-group-item.list-group-item-action(href="/")
+                        a.list-group-item.list-group-item-action(href="/categories/kitchen")
                             .d-flex.w-100.justify-content-between
                                 h5.mb-1 Kitchen
-                        a.list-group-item.list-group-item-action(href="/")
+                        a.list-group-item.list-group-item-action(href="/categories/livingroom")
                             .d-flex.w-100.justify-content-between
                                 h5.mb-1 Living Room
-                        a.list-group-item.list-group-item-action(href="/")
+                        a.list-group-item.list-group-item-action(href="/categories/compound")
                             .d-flex.w-100.justify-content-between
                                 h5.mb-1 Compound
-                        a.list-group-item.list-group-item-action(href="/")
+                        a.list-group-item.list-group-item-action(href="/categories/bedroom")
                             .d-flex.w-100.justify-content-between
                                 h5.mb-1 Bedroom
-                        a.list-group-item.list-group-item-action(href="/")
+                        a.list-group-item.list-group-item-action(href="/categories/school")
                             .d-flex.w-100.justify-content-between
                                 h5.mb-1 School
 
     .container
         .row
-            .col-sm-12.mt-5.mb-5.text-center
-                h2 Our Products
-                p.lead Check out our range of products on show below
-
-        .col-sm-12
-            .card-deck
-                each product in products
-                    - var url =  product.productimage;
-                    .card.rounded-0
-                        img(src=('/uploads/' + url), alt="" class="img-fluid")
-                        .card-body
-                            .row
-                                .col-6.cat
-                                    small.text-muted Cat: #{product.category}
-                                .col-6.cost
-                                    small Cost: #{product.productcost}/=
-                            h5.card-title
-                                - var productId = product._id
-                                a(href=('/product/' + productId )) #{product.productname}
-
-        .col-sm-12.mt-4
-            .main-heading.mb-2
-                h4 Funiture
-            .card-deck
-                .card.rounded-0
-                    img(src="/uploads/productimage-1595276207856.jpg", alt="" class="img-fluid")
-                    .card-body
-                        h5.card-title Card Title
-                        p.card-text This is a description
-
-                .card.rounded-0
-                    img(src="/uploads/productimage-1595276207856.jpg", alt="" class="img-fluid")
-                    .card-body
-                        h5.card-title Card Title
-                        p.card-text This is a description
-                .card.rounded-0
-                    img(src="/uploads/productimage-1595276207856.jpg", alt="" class="img-fluid")
-                    .card-body
-                        h5.card-title Card Title
-                        p.card-text This is a description
-                .card.rounded-0
-                    img(src="/uploads/productimage-1595276207856.jpg", alt="" class="img-fluid")
-                    .card-body
-                        h5.card-title Card Title
-                        p.card-text This is a description
+            .col-sm-12
+                .card-deck
+                    each product in products
+                        - var url =  product.productimage;
+                        .card.rounded-0
+                            img(src=('/uploads/' + url), alt="" class="img-fluid")
+                            .card-body
+                                .row
+                                    .col-6.cat
+                                        a(href=('/categories/' + product.category))
+                                            small.text-muted Cat: #{product.category}
+                                    .col-6.cost
+                                        small Cost: #{product.productcost}/=
+                                h5.card-title
+                                    - var productId = product._id
+                                    a(href=('/product/' + productId )) #{product.productname}

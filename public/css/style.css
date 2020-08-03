@@ -2,10 +2,10 @@ main{
     min-height: 90vh;
 }
 nav{
-    background: rgb(238, 211, 203) !important;
+    background: rgb(253, 61, 3) !important;
 }
 nav a{
-    color: rgb(7, 6, 6);
+    color: rgb(250, 246, 246);
     font-weight: 700;
 }
 nav a:hover{
@@ -64,6 +64,6 @@ nav a:hover{
 
 footer{
     min-height: 10vh;
-    background: rgb(238, 211, 203) ;
-    color: rgb(7, 6, 6);
+    background: #333;
+    color: rgb(250, 246, 246);
 }

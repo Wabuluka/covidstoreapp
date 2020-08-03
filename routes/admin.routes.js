@@ -1,7 +1,8 @@
 const express = require('express');
 const bcrypt = require('bcryptjs')
 const passport = require('passport')
-
+const isAdmin =  require('../middleware/roles').isAdmin
+const ensureAuthenticated =  require('../middleware/roles').ensureAuthenticated
 const router = express.Router();
 
 // Product Model
@@ -9,9 +10,12 @@ const productModel = require('../models/product.model');
 const User = require('../models/admin.model');
 const flash = require('express-flash');
 
+const helperClass = require('../middleware/helper');
+const { render } = require('pug');
+
 
 // default route that all clients access the app land on
-router.get('/', ensureAuthenticated, (req, res) =>{
+router.get('/', isAdmin, (req, res) =>{
     res.render('admin/index')
 })
 
@@ -164,7 +168,6 @@ router.get('/products', ensureAuthenticated, (req, res) => {
         if(error){
             res.send(error)
         }else{
-            // res.send(result)
             res.render('admin/products', {title: 'All Products', products: result})
         }
     })
@@ -183,7 +186,7 @@ router.get('/products/edit/:id',ensureAuthenticated, (req, res)=>{
 
 // post route for editing the product details
 router.post('/products/edit/:id', ensureAuthenticated, (req, res)=>{
-
+    const initialpay = helperClass.intialPayCalulcator(req.body.productcost)
     productModel.updateOne( { _id: req.params.id },         {
         $set: {
             productname :req.body.productname,
@@ -192,7 +195,8 @@ router.post('/products/edit/:id', ensureAuthenticated, (req, res)=>{
             color: req.body.color,
             numberinstock: req.body.instock,
             category :req.body.category,
-            productcost :req.body.productcost
+            productcost :req.body.productcost,
+            initialpay
         }
     }, (err, updatedProduct)=>{
         if(err){
@@ -203,14 +207,10 @@ router.post('/products/edit/:id', ensureAuthenticated, (req, res)=>{
         }
     })
 })
-// Access Control
-function ensureAuthenticated(req, res, next){
-    if(req.isAuthenticated()){
-      return next();
-    } else {
-      req.flash('danger', 'Please login');
-      res.redirect('/admin/login');
-    }
-}
+
+// agent dashboard url
+router.get('/agent', ensureAuthenticated, (req, res)=>{
+    res.render('./manager/index')
+})
  
 module.exports = router;

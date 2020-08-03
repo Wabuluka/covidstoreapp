@@ -33,11 +33,24 @@ router.get('/product/:id', (req,res)=>{
     })
 })
 
+// categories pager
+router.get('/categories/:category', (req,res)=>{
+    productModel.find({category : req.params.category}, (err, products)=>{
+        if(err){
+            console.log(err)
+        }
+        if(products == ''){
+            res.render('404')
+        }
+        else{
+            res.render('categories', {products: products})
+        }
+    })
+})
+
+// about us page
 router.get('/about', (req, res) => {
     res.render('about')
 })
-
-
- 
 
 module.exports = router;
