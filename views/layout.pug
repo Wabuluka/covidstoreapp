@@ -28,15 +28,11 @@ html(lang="en")
                                 
 
         main
+            != messages('message', locals)
+            if errors
+                each error, i in errors
+                    div(class="alert alert-danger") #{error.msg}
             block content
-
-                .container
-                    .row
-                        .col
-                            != messages('message', locals)
-                            if errors
-                                each error, i in errors
-                                    div(class="alert alert-danger") #{error.msg}
 
         footer.mt-3
             .container
@@ -46,8 +42,10 @@ html(lang="en")
                     .col-sm-3
                     .col-sm-5
                         h5 Disclaimer
+                        if(locals.message)
+                            p #{message.success}
                         p
-                            small All the products herein have been pre-purchased from their manufactures. Therefore, the store retains the rights to sell at a promotion or any prices that is prefered
+                            small All the products herein have been pre-purchased from their manufacturers. Therefore, the store retains the rights to sell at a promotion or any prices that is prefered
                         small Thank you for buying from us.
 
 script(src='https://code.jquery.com/jquery-3.5.1.js' integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous")  

@@ -89,7 +89,8 @@ router.get('/login', (req, res) =>{
 router.post('/login', function(req, res, next){
     passport.authenticate('local', {
         successRedirect: '/admin',
-        failureRedirect: '/admin/login'
+        failureRedirect: '/admin/login',
+        failureFlash: true
     })(req, res, next)
 })
 
@@ -151,7 +152,7 @@ router.post('/manager/create', ensureAuthenticated, async (req, res)=>{
                 if(err){
                     console.log(err);
                 }else{
-                    res.render('/admin');
+                    res.render('/admin/index');
                 }
             })
         })
