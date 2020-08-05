@@ -11,8 +11,6 @@ const User = require('../models/admin.model');
 const flash = require('express-flash');
 
 const helperClass = require('../middleware/helper');
-const { render } = require('pug');
-
 
 // default route that all clients access the app land on
 router.get('/', isAdmin, (req, res) =>{
@@ -39,10 +37,10 @@ router.post('/signup', async (req, res)=>{
     const password = req.body.password
 
     // check if user already exists
-    // if(User.findOne(username)){
-    //     req.flash('Username already taken');
-    //     res.redirect('/admin/signup')
-    // }
+    if(User.findOne(username)){
+        req.flash('Username already taken');
+        res.redirect('/admin/signup')
+    }
     try{
         let user = new User({
             userid: userid,

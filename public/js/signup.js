@@ -123,10 +123,15 @@ function validateForm(){
     }
 
     // validate password2
-    if(password2 == password){
+    if(password2 == ""){
+        printError("password2Error", "Please provide a password here to comfirm password")
+        password2Error = false
+    }else{
+        if(password2 == password){
         printError("password2Error", "Make sure you have entered matching passwords")
         password2Error = false
         return false
+    }
     }
 
 }
