@@ -15,6 +15,7 @@ router.get('/', async(req, res) =>{
         }else{
             // res.send(result)
             // res.send(result)
+            req.flash('success', 'Please  welcome')
             res.render('index',{ products: results})
         }
     }).limit(4)

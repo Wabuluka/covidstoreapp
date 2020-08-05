@@ -35,19 +35,27 @@ app.set('view engine', 'pug');
 // set morgan
 app.use(morgan('dev'));
 
-app.use(flash())
+
+
 app.use(session({
     secret: config.secret,
     resave: false,
     saveUninitialized: false
 }))
 
-// Express Messages Middleware
+app.use(flash())
+//Global varibales
+// app.use(function (req, res, next) {
+//     res.locals.error = req.flash('error');
+//     res.locals.success = req.flash('success');
+//     next();
+// });
 app.use(require('connect-flash')());
 app.use((req, res, next)=> {
   res.locals.messages = require('express-messages')(req, res);
   next();
 });
+
 
 // Passport Configuration
 require('./middleware/authentication')(passport);
