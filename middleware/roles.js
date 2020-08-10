@@ -15,6 +15,6 @@ module.exports.isAdmin = (req, res, next) => {
     } else if (req.isAuthenticated() && req.user.role == 'manager'){
         res.redirect('/admin/agent')
     }else{
-      res.redirect('/admin/login', 401)
+      res.redirect('/admin/login')
     }
 }

@@ -10,7 +10,7 @@ block content
                 header.card-header
 
                     h4.card-title Login
-                form(method="POST" action="/admin/login" name="loginForm" onsubmit="return validateLogin()")
+                form(method="POST" action="/admin/login" id="loginForm")
                     .form-row.mt-2
                         .col.form-group
                             label Username
@@ -24,3 +24,4 @@ block content
                     .form-row
                         .col.form-group
                             button.btn.btn-primary.btn-block Login
+    script(src="/js/login.js")

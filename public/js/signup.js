@@ -1,172 +1,130 @@
-// Defining a function to display error message
-function printError(elemId, hintMsg) {
+// display errors
+function printerError(elemId, hintMsg){
     document.getElementById(elemId).innerHTML = hintMsg;
 }
 
-// validating the signup form
-function validateForm(){
+// signup form id
+const signupForm = document.getElementById('signupForm');
+
+// signup form validation
+signupForm.addEventListener('submit', (e)=>{
     let firstname = document.signupForm.firstname.value;
-    let lastname = document.signupForm.lastname.value
-    let email = document.signupForm.email.value
-    let username = document.signupForm.username.value
-    let nin = document.signupForm.nin.value
-    let country = document.signupForm.country.value
-    let password = document.signupForm.password.value
-    let password2 = document.signupForm.password2.value
-    let gender = document.signupForm.gender.value
+    let lastname = document.signupForm.lastname.value;
+    let email = document.signupForm.email.value;
+    let username =  document.signupForm.username.value;
+    let nin = document.signupForm.nin.value;
+    let gender = document.signupForm.gender.value;
+    let country = document.signupForm.country.value;
+    let password = document.signupForm.password.value;
+    let password2 = document.signupForm.password2.value;
 
-    // error holders
-    let firstnameError
-    let lastnameError
-    let emailError
-    let usernameError
-    let ninError
-    let countryError
-    let passwordError
-    let password2Error
-    let genderError
 
-    // validate firstname
-    if(firstname == ""){
-        printError("firstnameError", "Please enter your First Name")
-        return false
+    let firstnameError = lastnameError = emailError = usernameError = genderError = ninError = countryError = passwordError = password2Error = true
+
+    // first name validation
+    if(firstname == ''){
+        printerError('firstnameError', 'First Name must be provided')
+    }
+    else {
+        printerError("firstnameError", "")
+        firstnameError = false;
+    }
+
+    // last name validation
+    if(lastname == ''){
+        printerError('lastnameError', 'Last Name must be provided')
     }else{
-        let regex = /^[a-zA-Z\s]+$/;
-        if(reqex.test(firstname) === false){
-            printError("firstnameError", "Please enter a valid First Name")
-            return false
-        }
+        printerError('lastnameError', '')
+        lastnameError = false
     }
 
-    // validate lastname
-    if(lastname == ""){
-        printError("lastnameError", "Please enter your Last Name")
-        return false
+    // email validation
+    if(email == ''){
+        printerError('emailError', 'Email must be provided')
     }else{
-        let regex = /^[a-zA-Z\s]+$/;
-        if(reqex.test(lastname) === false){
-            printError("lastnameError", "Please enter a valid Last Name")
-            return false
-        }
+        printerError('emailError', '')
+        emailError = false
     }
 
-    // Validate email address
-    if(email == "") {
-        printError("emailError", "Please enter your email address");
-        return false
-    } else {
-        // Regular expression for basic email validation
-        var regex = /^\S+@\S+\.\S+$/;
-        if(regex.test(email) === false) {
-            printError("emailError", "Please enter a valid email address");
-            return false
-        } else{
-            printError("emailError", "");
-            emailError = false;
-            return false
-        }
-    }
-
-    // validate username
-    if(username == ""){
-        printError("usernameError", "Please enter your Username")
-        return false
+    // username validation
+    if(username == ''){
+        printerError('usernameError', 'Username must be provided')
     }else{
-        let regex = /^[a-zA-Z\s]+$/;
-        if(reqex.test(username) === false){
-            printError("usernameError", "Please enter a valid Username")
-            return false
-        }else{
-            printError("usernameError", "");
-            usernameError = false
-            return false
-        }
-    }
-
-    // validate nin
-    if(nin == ""){
-        printError("ninError", "Please enter your NIN")
-        return false
-    }else{
-        let regex = /^[a-zA-Z\s]+$/;
-        if(reqex.test(nin) === false){
-            printError("ninError", "Please enter a valid NIN")
-            return false
-        }else{
-            printError("ninError", "");
-            ninError = false
-            return false
-        }
-    }
-
-    // validate country
-    if(country == ""){
-        printError("countryError", "Please enter your Country Name")
-        return false
-    }else{
-        let regex = /^[a-zA-Z\s]+$/;
-        if(reqex.test(country) === false){
-            printError("countryError", "Please enter a valid Country Name")
-            return false
-        }else{
-            printError("countryError", "");
-            countryError = false
-            return false
-        }
-    }
-
-
-    // validate gender
-    if(gender == ""){
-        printError("genderError", "Select a gender")
-        genderError = false
-        return false
-    }
-
-    // validate password
-    if(password == ""){
-        printError("passwordError", "Please enter your Password")
-        return false
-    }else{
-        if(password.length < 6){
-            printError("passwordError", "Password must be morethan 5 characters")
-            passwordError = false
-            return false
-        }
-    }
-
-    // validate password2
-    if(password2 == ""){
-        printError("password2Error", "Please provide a password here to comfirm password")
-        password2Error = false
-        return false
-    }else{
-        if(password2 == password){
-        printError("password2Error", "Make sure you have entered matching passwords")
-        password2Error = false
-        return false
-    }
-    }
-
-}
-
-function validateLogin(){
-    let username = document.loginForm.username.value
-    let password = document.loginForm.password.value
-
-    let usernameError
-    let passwordError
-
-    if(username == ""){
-        printError("usernameError", "You need a username to login")
+        printerError('usernameError', '')
         usernameError = false
-        return false
+    }
 
+    // nin validation
+    if(nin == ''){
+        printerError('ninError', 'NIN must be provided')
+    }else{
+        printerError('ninError', '')
+        ninError =  false
     }
-    if(password == ""){
-        printError("passwordError", "You need a username to login")
+
+    // gender validation
+    if(gender == ''){
+        printerError('genderError', 'You must select one')
+    }else{
+        printerError('genderError', '')
+        genderError = false
+    }
+    // country validation
+    if(country == ''){
+        printerError('countryError', 'Country must be provided')
+    }else{
+        printerError('countryError', '')
+        countryError = false
+    }
+
+    // password validation
+    if(password == ''){
+        printerError('passwordError', 'Password must be provided')
+    }else{
+        printerError('passwordError', '')
         passwordError = false
-        return false
     }
-    
-}
+
+    // password2 validation
+    if(password2 == ''){
+        printerError('password2Error', 'Passwords must match')
+    }else{
+        printerError('password2Error', '')
+        password2Error = false
+    }
+
+
+    // proceed command center
+    if((firstnameError || lastnameError || emailError || usernameError || genderError || ninError || countryError || passwordError || password2Error) == true){
+        e.preventDefault()
+    }else{
+        e.currentTarget.submit();
+    }
+})
+
+
+
+// // add product form id
+// const productForm = document.getElementById('productForm');
+
+// // product form validation
+// productForm.addEventListener('submit', (e)=>{
+//     let serial = document.productForm.serial.value;
+
+//     // errors
+//     let serialError = true
+
+//     // validate serial number
+//     if(serial == ''){
+//         printerError('serialError', 'Provide Product Serial')
+//     }else{
+//         printerError('serialError', '')
+//         serialError =  false
+//     }
+
+//     if((serialError) ==  true){
+//         e.preventDefault()
+//     }else{
+//         e.currentTarget.submit();
+//     }
+// })

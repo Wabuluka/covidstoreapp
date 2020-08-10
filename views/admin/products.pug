@@ -32,7 +32,8 @@ block content
                                 - var productId = product._id
                                 a(href=('/admin/products/edit/' +productId)) edit
                             td
-                                a(href="") delete
+                                form(action=("/admin/products/delete/" +productId), method="post")
+                                    button.btn delete
 
         .row.mt-3
             .col-sm-10

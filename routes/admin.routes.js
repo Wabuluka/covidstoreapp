@@ -22,6 +22,7 @@ router.get('/', isAdmin, (req, res) =>{
 router.get('/signup', (req, res) =>{
     res.render('admin/admin-signup')
 })
+
 // (post) the admin signup url processing
 router.post('/signup', async (req, res)=>{
 
@@ -76,14 +77,13 @@ router.post('/signup', async (req, res)=>{
     }catch(error){
         console.log(error)
     }
-    
-    
 })
 
 // get the admin login url
 router.get('/login', (req, res) =>{
     res.render('admin/admin-login')
 });
+
 // (post) the admin signup url processing
 router.post('/login', function(req, res, next){
     passport.authenticate('local', {
@@ -94,9 +94,10 @@ router.post('/login', function(req, res, next){
 })
 
 // route to logout
-router.get('/logout', (req, res)=>{
+router.get('/logout', isAdmin, (req, res)=>{
+     
     req.logout();
-    req.flash('success', 'You are logged out')
+    // req.flash('success', 'You are logged out')
     res.redirect('/admin/login')
 })
 
@@ -157,8 +158,6 @@ router.post('/manager/create', ensureAuthenticated, async (req, res)=>{
         })
     })
 })
-
-
 
 // get all products
 router.get('/products', ensureAuthenticated, (req, res) => {
@@ -247,4 +246,18 @@ router.post('/agents/sale/:saleId', (req, res)=>{
     // const 
 })
  
+// admin delete route
+router.post('/products/delete/:productId', async(req, res)=>{
+    let query = req.params.productId
+    try{
+        await productModel.deleteOne({_id: query}, (err, result)=>{
+            if(err){
+                console.log(err)
+            }
+            res.redirect('/admin/products')
+        })
+    }catch(err){
+        console.log(err)
+    }
+})
 module.exports = router;

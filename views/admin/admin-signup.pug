@@ -9,7 +9,7 @@ block content
                 header
 
                     h3 Registeration Form
-                form(method="POST" action="/admin/signup" name="signupForm" onsubmit="return validateForm()")
+                form(method="POST" action="/admin/signup" name="signupForm" id="signupForm")
                     .form-row.mt-2
 
                         .col.form-group
@@ -46,8 +46,9 @@ block content
                             label.form-check.form-check-inline
                                 input.form-check-input(type="radio" name="gender" value="male")
                                 span.form-check-label Male
-                        .col.form-group
                             #genderError.error
+                        .col.form-group
+                            
 
                     .form-row
                         .col.form-group
@@ -76,3 +77,6 @@ block content
                     .form-row
                         .col.form-group
                             button.btn.btn-primary.btn-block Register
+
+
+    script(src="/js/signup.js")

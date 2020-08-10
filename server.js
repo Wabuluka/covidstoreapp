@@ -62,6 +62,13 @@ require('./middleware/authentication')(passport);
 app.use(passport.initialize())
 app.use(passport.session())
 
+app.use(function(req, res, next) {
+    if (!req.user)
+        res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    next();
+});
+
+
 app.get('*', (req, res, next)=>{
     res.locals.user = req.user || null;
     next();
