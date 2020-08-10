@@ -8,7 +8,8 @@ const router = express.Router();
 // Product Model
 const productModel = require('../models/product.model');
 const User = require('../models/admin.model');
-const flash = require('express-flash');
+const Sales = require('../models/sales.model')
+// const flash = require('express-flash');
 
 const helperClass = require('../middleware/helper');
 
@@ -37,10 +38,10 @@ router.post('/signup', async (req, res)=>{
     const password = req.body.password
 
     // check if user already exists
-    if(User.findOne(username)){
-        req.flash('Username already taken');
-        res.redirect('/admin/signup')
-    }
+    // if(User.findOne(username)){
+    //     req.flash('Username already taken');
+    //     res.redirect('/admin/signup')
+    // }
     try{
         let user = new User({
             userid: userid,
@@ -150,7 +151,7 @@ router.post('/manager/create', ensureAuthenticated, async (req, res)=>{
                 if(err){
                     console.log(err);
                 }else{
-                    res.render('/admin/index');
+                    res.render('admin/index');
                 }
             })
         })
@@ -185,7 +186,7 @@ router.get('/products/edit/:id',ensureAuthenticated, (req, res)=>{
 // post route for editing the product details
 router.post('/products/edit/:id', ensureAuthenticated, (req, res)=>{
     const initialpay = helperClass.intialPayCalulcator(req.body.productcost)
-    productModel.updateOne( { _id: req.params.id },         {
+    productModel.updateOne( { _id: req.params.id },{
         $set: {
             productname :req.body.productname,
             description :req.body.description,
@@ -205,9 +206,45 @@ router.post('/products/edit/:id', ensureAuthenticated, (req, res)=>{
     })
 })
 
+// admin sees all the registered agents
+router.get('/agents/view',  isAdmin, (req, res)=>{
+    User.find({role: 'manager'}, (err, agents)=>{
+        if(err){
+            console.log(err)
+        }
+        res.render('admin/agents', {agents: agents})
+    })
+    
+})
+
 // agent dashboard url
 router.get('/agent', ensureAuthenticated, (req, res)=>{
     res.render('./manager/index')
+})
+
+
+// agent sees pending sale (GET)
+router.get('/agent/pending', ensureAuthenticated, (req, res)=>{
+    Sales.find({status: 'pending'}, (err, pending)=>{
+        if(err){
+            console.log(err)
+        }
+        res.render('manager/p-sales', {pending_sales: pending})
+    })
+})
+
+// finishing a sales router (GET)
+router.get('/agents/sale/:saleId', (req, res) =>{
+    Sales.findById(req.params.saleId, (err, sale)=>{
+        if(err){
+            console.log(err)
+        }
+        res.render('manager/finish', {sale: sale})
+    })
+})
+// agent able to complete a transaction
+router.post('/agents/sale/:saleId', (req, res)=>{
+    // const 
 })
  
 module.exports = router;

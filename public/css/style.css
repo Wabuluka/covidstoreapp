@@ -12,6 +12,9 @@ nav a:hover{
     color: rgb(70, 28, 28);
     transition: 0.8s;
 }
+span .navbar-toggler-icon{
+    color: white !important;
+}
 /* top marigin to preven content rendering under the navigation bar */
 .top-margin-from-navigation{
     margin-top: 60px ;

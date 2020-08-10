@@ -1,0 +1,40 @@
+extends ../layout
+block content
+    .container.top-margin-from-navigation
+        .row.mt-3
+            .col-sm-10
+                h3 #{title}
+            .col-sm-2.text-right
+                a(href="/admin") return to admin    
+        .row.mt-3
+            
+            table.table
+                thead.thead-dark
+                    tr
+                        th(scope="col") User ID
+                        th(scope="col") First Name
+                        th(scope="col") Last Name
+                        th(scope="col") Username
+                        th(scope="col") Email
+                        th(scope="col") NIN
+                        th(scope="col") Edit
+                        th(scope="col") Delete
+                        
+                    each product in agents
+                        tbody
+                            td #{product.userid}
+                            td #{product.firstname}
+                            td #{product.lastname}
+                            td #{product.username}
+                            td #{product.email}
+                            td #{product.nin}
+                            td  
+                                - var productId = product._id
+                                a(href=('/admin/products/edit/' +productId)) edit
+                            td
+                                a(href="") delete
+
+        .row.mt-3
+            .col-sm-10
+            .col-sm-2
+                a.btn.btn-primary(href="/products/add-product" role="button") Create Product

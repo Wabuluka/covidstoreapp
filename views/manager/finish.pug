@@ -1,0 +1,39 @@
+extends ../layout
+block content
+    .container.top-margin-from-navigation 
+        .row
+            .col-sm-5.mt-5
+                - var url = sale.productimage
+                img(src=('/uploads/' + url), alt="" class="img-fluid")
+            .col-sm-7.mt-5
+                header.card-header
+
+                    h4.card-title Purchase Order
+                form(method="POST" action=('/admin/agents/sale/'+ sale._id) name="loginForm" onsubmit="return validateLogin()")
+                    .form-row.mt-2
+                        .col.form-group
+                            label Product ID:
+                            input.form-control(name="" type="text" value=sale._id readonly)
+                            #customernameError.error
+                    .form-row
+                        .col.form-group
+                            label Your Email Address
+                            input.form-control(type="email" name="email")
+                            #customerEmailError.error
+                    .form-row
+                        .col.form-group
+                            label Product Name
+                            input.form-control.muted(type="text" value=sale.productname )
+                    .form-row
+                        .col.form-group
+                            label Cost of Product
+                            input.form-control.muted(type="number" value=sale.productcost )
+                    .form-row
+                        .col.form-group
+                            label Amount being paid
+                            input.form-control(type="number" name="paidamount")
+                            //- #customerEmailError.error
+
+                    .row.mt-2
+                        .col.form-group
+                            button.btn.btn-good.btn-block clear Receipt
