@@ -3,17 +3,27 @@ block content
     .container.top-margin-from-navigation 
         .row
             .col-sm-12.mt-4
-                h4 Product Name: #{singleProduct.productname}
+                h4 Product Name: #{singleProduct.productname} 
 
         .row.mt-2
             .col-sm-5
                 - var url = singleProduct.productimage
                 img(src=('/uploads/' + url), alt="" class="img-fluid")
             .col-sm-7
-                h3 Product Description
+                h3 Product Description 
                 p #{singleProduct.productdescription}
+
+                .row
+                    .col
+                
+                        p.small 
+                            b  #{singleProduct.productcost} UGX - Total Payment
+                    .col
+                        small 
+                            b NB #{initialPay} UGX - initial payment required
 
         .row.mt-2
             .col-sm-10
+                
             .col-sm-2
                 a.btn.btn-good.btn-block(href=('/buy/')+singleProduct._id) Buy Now

@@ -44,12 +44,6 @@ app.use(session({
 }))
 
 app.use(flash())
-//Global varibales
-// app.use(function (req, res, next) {
-//     res.locals.error = req.flash('error');
-//     res.locals.success = req.flash('success');
-//     next();
-// });
 app.use(require('connect-flash')());
 app.use((req, res, next)=> {
   res.locals.messages = require('express-messages')(req, res);
@@ -78,7 +72,6 @@ app.get('*', (req, res, next)=>{
 let indexRoutes = require('./routes/index.routes');
 let adminRoutes = require('./routes/admin.routes');
 let productRoutes = require('./routes/product.routes')
-// let managerRoutes = require('./routes/manager.routes');
 
 app.use('/', indexRoutes);
 app.use('/admin', adminRoutes);

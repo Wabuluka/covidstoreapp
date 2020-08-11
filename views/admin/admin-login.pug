@@ -10,18 +10,18 @@ block content
                 header.card-header
 
                     h4.card-title Login
-                form(method="POST" action="/admin/login" id="loginForm")
+                form(method="POST" action="/admin/login" id="loginForm" )
                     .form-row.mt-2
                         .col.form-group
                             label Username
-                            input.form-control(name="username" type="text")
+                            input.form-control(name="username" type="text" id="username")
                             #usernameError.error
                     .form-row
                         .col.form-group
                             label Password
-                            input.form-control(type="password" name="password")
+                            input.form-control(type="password" name="password" id="password")
                             #passwordError.error
                     .form-row
                         .col.form-group
                             button.btn.btn-primary.btn-block Login
-    script(src="/js/login.js")
+    

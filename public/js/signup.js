@@ -3,10 +3,10 @@ function printerError(elemId, hintMsg){
     document.getElementById(elemId).innerHTML = hintMsg;
 }
 
-// signup form id
+// signupform id
 const signupForm = document.getElementById('signupForm');
 
-// signup form validation
+// validation
 signupForm.addEventListener('submit', (e)=>{
     let firstname = document.signupForm.firstname.value;
     let lastname = document.signupForm.lastname.value;
@@ -103,28 +103,4 @@ signupForm.addEventListener('submit', (e)=>{
 })
 
 
-
-// // add product form id
-// const productForm = document.getElementById('productForm');
-
-// // product form validation
-// productForm.addEventListener('submit', (e)=>{
-//     let serial = document.productForm.serial.value;
-
-//     // errors
-//     let serialError = true
-
-//     // validate serial number
-//     if(serial == ''){
-//         printerError('serialError', 'Provide Product Serial')
-//     }else{
-//         printerError('serialError', '')
-//         serialError =  false
-//     }
-
-//     if((serialError) ==  true){
-//         e.preventDefault()
-//     }else{
-//         e.currentTarget.submit();
-//     }
-// })
+// 

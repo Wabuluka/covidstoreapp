@@ -94,7 +94,7 @@ router.post('/login', function(req, res, next){
 })
 
 // route to logout
-router.get('/logout', isAdmin, (req, res)=>{
+router.get('/logout', (req, res)=>{
      
     req.logout();
     // req.flash('success', 'You are logged out')
@@ -107,7 +107,7 @@ router.get('/manager/create', ensureAuthenticated,  (req, res)=>{
 })
 
 // Manager Registration Post Route
-router.post('/manager/create', ensureAuthenticated, async (req, res)=>{
+router.post('/manager/create', isAdmin, async (req, res)=>{
 
     // Get user logged in
     // let loggedUser = req.user
@@ -171,8 +171,9 @@ router.get('/products', ensureAuthenticated, (req, res) => {
     })
 })
 
+
 // get route for editing a product
-router.get('/products/edit/:id',ensureAuthenticated, (req, res)=>{
+router.get('/products/edit/:id' , (req, res)=>{
     productModel.findById(req.params.id, (err, product)=>{
         if(err){
             console.log(err)
@@ -181,6 +182,7 @@ router.get('/products/edit/:id',ensureAuthenticated, (req, res)=>{
         }
     })
 })
+
 
 // post route for editing the product details
 router.post('/products/edit/:id', ensureAuthenticated, (req, res)=>{
@@ -205,6 +207,7 @@ router.post('/products/edit/:id', ensureAuthenticated, (req, res)=>{
     })
 })
 
+
 // admin sees all the registered agents
 router.get('/agents/view',  isAdmin, (req, res)=>{
     User.find({role: 'manager'}, (err, agents)=>{
@@ -212,9 +215,9 @@ router.get('/agents/view',  isAdmin, (req, res)=>{
             console.log(err)
         }
         res.render('admin/agents', {agents: agents})
-    })
-    
+    }) 
 })
+
 
 // agent dashboard url
 router.get('/agent', ensureAuthenticated, (req, res)=>{

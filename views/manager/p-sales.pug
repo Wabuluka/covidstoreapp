@@ -40,4 +40,5 @@ block content
         .row.mt-3
             .col-sm-10
             .col-sm-2
+                if user.role = 'admin'
                 a.btn.btn-primary(href="/products/add-product" role="button") Create Product

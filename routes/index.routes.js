@@ -1,6 +1,7 @@
 const express = require('express');
 const productModel = require('../models/product.model');
 const salesModel = require('../models/sales.model')
+const helper = require('../middleware/helper')
 
 const router = express.Router();
 
@@ -10,7 +11,7 @@ router.get('/', async(req, res) =>{
         if(error){
             res.send(error)
         }else{
-            req.flash('success', 'Please  welcome')
+            // req.flash('success', 'Please  welcome')
             res.render('index',{ products: results})
         }
     }).limit(4)
@@ -22,8 +23,10 @@ router.get('/product/:id', (req,res)=>{
     productModel.findById(req.params.id, (err, product)=>{
         if(err){
             console.log(err)
-        }else{
-            res.render('single-view', {singleProduct: product})
+        }
+        if(product){
+            let initialPay = helper.intialPayCalulcator(product.productcost)
+            res.render('single-view', {singleProduct: product, initialPay})
         }
     })
 })
@@ -49,7 +52,11 @@ router.get('/buy/:productId', (req, res)=>{
         if(err){
             console.log(err)
         }
-        res.render('sales', {oneProduct: single})
+        if(single){
+            let initialPay = helper.intialPayCalulcator(single.productcost)
+            res.render('sales', {oneProduct: single, initialPay})
+        }
+        
     })
     // res.render('sales')
 })
