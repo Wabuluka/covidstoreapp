@@ -11,29 +11,28 @@ block content
             table.table
                 thead.thead-dark
                     tr
-                        th(scope="col") Serial
-                        th(scope="col") Product Name
-                        th(scope="col") Category
-                        th(scope="col") Color
-                        th(scope="col") Unit Cost
-                        th(scope="col") Installment
+                        th(scope="col") User ID
+                        th(scope="col") First Name
+                        th(scope="col") Last Name
+                        th(scope="col") Username
+                        th(scope="col") Email
+                        th(scope="col") NIN
                         th(scope="col") Edit
                         th(scope="col") Delete
                         
-                    each product in products
+                    each product in agents
                         tbody
-                            td #{product.serial}
-                            td #{product.productname}
-                            td #{product.category}
-                            td #{product.color}
-                            td #{product.productcost}
-                            td #{product.initialpay}
+                            td #{product.userid}
+                            td #{product.firstname}
+                            td #{product.lastname}
+                            td #{product.username}
+                            td #{product.email}
+                            td #{product.nin}
                             td  
                                 - var productId = product._id
                                 a(href=('/admin/products/edit/' +productId)) edit
                             td
-                                form(action=("/admin/products/delete/" +productId), method="post")
-                                    button.btn delete
+                                a(href="") delete
 
         .row.mt-3
             .col-sm-10

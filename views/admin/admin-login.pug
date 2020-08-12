@@ -1,26 +1,27 @@
 extends ../layout
 block content
     .container.top-margin-from-navigation
-        .row.mt-3
-            .col-12
-                h1 Admin Sign Up 
-                p This is where a new Supreme manager creates his or her account
-
-        .row
-            .col-sm-7
-            .col-sm-5
+        
+        .row.mt-5
+            .col-sm-7.mt-5
+                h1 Login
+                p This is a sign up for both agents and admins. Both shall be redirected to their respective dashboards
+            .col-sm-5.mt-5
                 header.card-header
 
-                    h4.card-title Admin Login
-                form(method="POST" action="/admin/login")
+                    h4.card-title Login
+                form(method="POST" action="/admin/login" id="loginForm" )
                     .form-row.mt-2
                         .col.form-group
                             label Username
-                            input.form-control(name="username" type="text")
+                            input.form-control(name="username" type="text" id="username")
+                            #usernameError.error
                     .form-row
                         .col.form-group
                             label Password
-                            input.form-control(type="password" name="password")
+                            input.form-control(type="password" name="password" id="password")
+                            #passwordError.error
                     .form-row
                         .col.form-group
                             button.btn.btn-primary.btn-block Login
+    

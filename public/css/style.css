@@ -1,20 +1,23 @@
 main{
     min-height: 90vh;
 }
-nav{
-    background: rgb(238, 211, 203) !important;
+.navbar{
+    background: rgb(253, 61, 3) !important;
 }
 nav a{
-    color: rgb(7, 6, 6);
+    color: rgb(250, 246, 246);
     font-weight: 700;
 }
 nav a:hover{
     color: rgb(70, 28, 28);
     transition: 0.8s;
 }
+span .navbar-toggler-icon{
+    color: white !important;
+}
 /* top marigin to preven content rendering under the navigation bar */
 .top-margin-from-navigation{
-    margin-top: 60px ;
+    margin-top: 80px ;
 }
 /* jumbotron at the homepage */
 .jumbotron{
@@ -58,12 +61,16 @@ nav a:hover{
     color: rgb(250, 246, 246);
     font-weight: 700;
 }
-
+/* erros */
+.error {
+    color: red;
+    font-size: 70%;
+}
 /* admin signup css */
 
 
 footer{
     min-height: 10vh;
-    background: rgb(238, 211, 203) ;
-    color: rgb(7, 6, 6);
+    background: #333;
+    color: rgb(250, 246, 246);
 }

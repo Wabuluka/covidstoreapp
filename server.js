@@ -9,7 +9,12 @@ const config = require('./config/database');
 const passport = require('passport')
 const User = require('./models/admin.model')
 // mongodb
-mongoose.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true} );
+mongoose.connect(config.db, {
+    useNewUrlParser: true, 
+    useUnifiedTopology: true, 
+    useCreateIndex: true
+    } 
+);
 let mongoDb = mongoose.connection;
 
 mongoDb.once('open', function(){
@@ -30,28 +35,47 @@ app.set('view engine', 'pug');
 // set morgan
 app.use(morgan('dev'));
 
-app.use(flash())
+
+
 app.use(session({
     secret: config.secret,
     resave: false,
     saveUninitialized: false
 }))
 
+app.use(flash())
+app.use(require('connect-flash')());
+app.use((req, res, next)=> {
+  res.locals.messages = require('express-messages')(req, res);
+  next();
+});
+
+
 // Passport Configuration
 require('./middleware/authentication')(passport);
 app.use(passport.initialize())
 app.use(passport.session())
 
+app.use(function(req, res, next) {
+    if (!req.user)
+        res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    next();
+});
+
+
+app.get('*', (req, res, next)=>{
+    res.locals.user = req.user || null;
+    next();
+});
+
 // routes
 let indexRoutes = require('./routes/index.routes');
 let adminRoutes = require('./routes/admin.routes');
 let productRoutes = require('./routes/product.routes')
-// let managerRoutes = require('./routes/manager.routes');
 
 app.use('/', indexRoutes);
 app.use('/admin', adminRoutes);
 app.use('/products', productRoutes);
-// app.use('/manager', managerRoutes);
 
 
 app.get('*', (req, res)=>{

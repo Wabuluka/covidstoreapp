@@ -8,24 +8,31 @@ html(lang="en")
         link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
         link(rel="stylesheet", href="/css/style.css")
     body
-
-        nav.navbar.navbar-expand-md.fixed-top
+        nav.navbar.navbar-expand-lg.fixed-top
             .container
-                a.navbar-brand(href='/') Covid Store
+                a.navbar-brand(href='/')
+                    img(src='/uploads/productimage-1596903809693.png' width='100' height='50' alt='' loading='lazy')
 
-        
-                ul.navbar-nav
-                    li.nav-item
-                        a.nav-link(href="/about") About    
-                ul.navbar-nav.ml-auto
-                    li.nav-item
-                        a.nav-link(href="/admin/login") Login
-                    li.nav-item
-                        a.nav-link(href="/admin/signup") Signup
+                button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
+                    span.navbar-toggler-icon
+                #navbarSupportedContent.collapse.navbar-collapse
+                    ul.navbar-nav.ml-auto
+                        li.nav-item
+                            a.nav-link(href="/about") About   
+                        if user
+                            li.nav-item
+                                a.nav-link(href="/admin") Dashboard
+                            li.nav-item
+                                a.nav-link(href="/admin/logout") Logout
+                        else
+                            li.nav-item
+                                a.nav-link(href="/admin/login") Login
+
 
                                 
 
         main
+
             block content
 
         footer.mt-3
@@ -33,14 +40,30 @@ html(lang="en")
                 .row.pt-2
                     .col-sm-4
                         small &copy; Covid Store 2020 - dwabuluka
+                        p.small Logo was created for free from
+                            a(href="https://logomakr.com/")  https://logomakr.com/
                     .col-sm-3
+                        h4 Important Links
+                        nav.nav.flex-column
+                            a.nav-link(href='/') Home
+                            a.nav-link(href='/about') About
+                            if !user
+                                a.nav-link(href='/admin/signup') Create Admin
+
                     .col-sm-5
                         h5 Disclaimer
+                        if(locals.message)
+                            p #{message.success}
                         p
-                            small All the products herein have been pre-purchased from their manufactures. Therefore, the store retains the rights to sell at a promotion or any prices that is prefered
+                            small All the products herein have been pre-purchased from their manufacturers. Therefore, the store retains the rights to sell at a promotion or any prices that is prefered
                         small Thank you for buying from us.
 
 script(src='https://code.jquery.com/jquery-3.5.1.js' integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous")  
 script(src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js' integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous")
 script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous")   
 script(src="/js/custom.js")
+script(src="/js/signup.js")
+script(src="/js/edit-product.js")
+script(src="/js/sales.js")
+script(src="/js/product-add.js")
+script(src="/js/create-manager.js")

@@ -1,0 +1,44 @@
+extends ../layout
+block content
+    .container.top-margin-from-navigation
+        .row.mt-3
+            .col-sm-10
+                h3 #{title}
+            .col-sm-2.text-right
+                a(href="/admin") return to admin    
+        .row.mt-3
+            
+            table.table
+                thead.thead-dark
+                    tr
+                        th(scope="col") Product ID
+                        th(scope="col") Customer Name
+                        th(scope="col") Customer Email
+                        th(scope="col") Status
+                        th(scope="col") Date
+                        th(scope="col") Edit
+                        th(scope="col") Delete
+                        
+                    each product in pending_sales
+                        tbody
+                            td #{product.productId}
+                            td #{product.customername}
+                            td #{product.customeremail}
+                            td #{product.status}
+                            - var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+                            -var m = monthNames[product.dateoftransaction.getMonth()];
+                            - var day = product.dateoftransaction.getDate()
+                            - var year = product.dateoftransaction.getFullYear()
+
+                            td #{m} - #{day} - #{year}
+                            td  
+                                - var productId = product._id
+                                a(href=('/admin/agents/sale/' +product._id)) complete
+                            td
+                                a(href="") delete
+
+        .row.mt-3
+            .col-sm-10
+            .col-sm-2
+                if user.role = 'admin'
+                a.btn.btn-primary(href="/products/add-product" role="button") Create Product

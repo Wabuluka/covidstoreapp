@@ -5,7 +5,7 @@ block content
             .col-sm-3.mt-3
                 .card   
                     .card-body
-                        h3.text-center Admin
+                        h3.text-center Admin: #{user.username}
 
             .col-sm-9.mt-3
                 .row
@@ -20,14 +20,22 @@ block content
                                 .card-body
                                     a(href="/admin/products")
                                         h5.card-title View Products
+                            
+                            .card
+                                .card-body
+                                    a(href="/admin/agent/pending")
+                                        h5.card-title Pending 
+                            
+
                             .card
                                 .card-body
                                     a(href="/admin/manager/create")
-                                        h5.card-title Add Manager
+                                        h5.card-title Add Agent
                                 
                             .card
                                 .card-body
-                                    h5.card-title View Managers
+                                    a(href="/admin/agents/view")
+                                        h5.card-title View Agents
                 hr
 
 
