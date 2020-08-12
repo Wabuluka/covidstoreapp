@@ -14,11 +14,12 @@ block content
                     .form-row.mt-2
                         .col.form-group
                             label Product Serial:
-                            input.form-control(name="serialNo" type="text")
+                            input.form-control(name="serialNo" type="text" id="serialNo")
                             #serialError.error
                         .col.form-group
                             label Product Name:
-                            input.form-control(name="productname" type="text")
+                            input.form-control(name="productname" type="text" id="productname")
+                            #productnameError.error
                     .form-row
                         .col.form-group
                             label Make:
@@ -27,11 +28,13 @@ block content
                                 option(value="fr") Foreign
                         .col.form-group
                             label Add Product Image:
-                            input.form-control-file(type="file" name="productimage")
+                            input.form-control-file(type="file" name="productimage" id="productimage")
+                            #productimageError.error
                     .form-row
                         .col.form-group
                             label Product Description
-                            textarea.form-control(name="description", cols="30", rows="5")
+                            textarea.form-control(name="description", cols="30", rows="5" id="description")
+                            #descriptionError.error 
 
                     .form-row
                         .col.form-group
@@ -54,16 +57,18 @@ block content
                                 option(value="school") School
                         .col.form-group
                             label Number in stock:
-                            input.form-control(type="number" name="instock")
+                            input.form-control(type="number" name="instock" id="instock")
+                            #instockError.error
 
 
                     .form-row.mt-2
                         .col.form-group
                             label Cost:
-                            input.form-control(name="productcost" type="text")
+                            input.form-control(name="productcost" type="number" id="productcost")
+                            #productcostError.error
                     .form-row
                         .col.form-group
                             button.btn.btn-primary.btn-block Add Product
 
             .col-sm-2
-    script(src="/js/product-add.js")
+

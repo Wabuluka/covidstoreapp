@@ -173,7 +173,7 @@ router.get('/products', ensureAuthenticated, (req, res) => {
 
 
 // get route for editing a product
-router.get('/products/edit/:id' , (req, res)=>{
+router.get('/products/edit/:id',ensureAuthenticated, (req, res)=>{
     productModel.findById(req.params.id, (err, product)=>{
         if(err){
             console.log(err)
@@ -217,7 +217,6 @@ router.get('/agents/view',  isAdmin, (req, res)=>{
         res.render('admin/agents', {agents: agents})
     }) 
 })
-
 
 // agent dashboard url
 router.get('/agent', ensureAuthenticated, (req, res)=>{

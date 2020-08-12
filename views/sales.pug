@@ -9,16 +9,16 @@ block content
                 header.card-header
 
                     h4.card-title Purchase Order
-                form(method="POST" action=('/buy/'+ oneProduct._id) name="loginForm" onsubmit="return validateLogin()")
+                form(method="POST" action=('/buy/'+ oneProduct._id) id="purchaseOrder")
                     .form-row.mt-2
                         .col.form-group
                             label Your Name:
-                            input.form-control(name="customername" type="text")
+                            input.form-control(name="customername" id="customername" type="text")
                             #customernameError.error
                     .form-row
                         .col.form-group
                             label Your Email Address
-                            input.form-control(type="email" name="email")
+                            input.form-control(type="email" id="email" name="email")
                             #customerEmailError.error
                     .form-row
                         .col.form-group
@@ -31,8 +31,8 @@ block content
                     .form-row
                         .col.form-group
                             label Amount being paid
-                            input.form-control(type="number" name="paidamount" value=initialPay)
-                            //- #customerEmailError.error
+                            input.form-control(type="number" name="paidamount" id="paidamount" value=initialPay)
+                            #paidamountError.error
 
                     .row.mt-2
                         .col.form-group

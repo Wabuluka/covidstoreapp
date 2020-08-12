@@ -9,29 +9,35 @@ block content
                 header.card-header
 
                     h4.card-title Manager Registeration Form
-                form(method="POST" action="/admin/manager/create")
+                form(method="POST" action="/admin/manager/create" id="createAgent")
                     .form-row.mt-2
 
                         .col.form-group
                             label First name
-                            input.form-control(name="firstname" type="text")
+                            input.form-control(name="firstname" type="text" id="firstname")
+                            #firstnameError.error
 
                         .col.form-group
                             label Last name
-                            input.form-control(name="lastname" type="text")
+                            input.form-control(name="lastname" type="text" id="lastname")
+                            #lastnameError.error
 
                     .form-row
                         .col.form-group
                             label Email
-                            input.form-control(name="email" type="email")
+                            input.form-control(name="email" type="email" id="email")
+                            #emailError.error
 
                     .form-row
                         .col.form-group
                             label Username
-                            input.form-control(name="username" type="text")
+                            input.form-control(name="username" type="text" id="username")
+                            #usernameError.error
+
                         .col.form-group
                             label NIN
-                            input.form-control(name="nin" type="text")
+                            input.form-control(name="nin" type="text" id="nin")
+                            #ninError.error
 
                     .form-row
                         .col.form-group
@@ -45,7 +51,9 @@ block content
                     .form-row
                         .col.form-group
                             label Country 
-                            input.form-control(name="country")
+                            input.form-control(name="country" id="country")
+                            #countryError.error
+
                         .col.form-group
                             label City
                             select.form-control(name="city")
@@ -55,7 +63,8 @@ block content
                     .form-row
                         .col.form-group
                             label Create Password
-                            input.form-control(type="password" name="password")
+                            input.form-control(type="password" name="password" id="password")
+                            #passwordError.error
 
                     .form-row
                         .col.form-group
