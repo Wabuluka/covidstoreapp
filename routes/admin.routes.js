@@ -12,6 +12,7 @@ const Sales = require('../models/sales.model')
 // const flash = require('express-flash');
 
 const helperClass = require('../middleware/helper');
+const salesModel = require('../models/sales.model');
 
 // default route that all clients access the app land on
 router.get('/', isAdmin, (req, res) =>{
@@ -39,10 +40,10 @@ router.post('/signup', async (req, res)=>{
     const password = req.body.password
 
     // check if user already exists
-    // if(User.findOne(username)){
-    //     req.flash('Username already taken');
-    //     res.redirect('/admin/signup')
-    // }
+    if(User.findOne(username)){
+        console.log('Username already taken');
+    }
+
     try{
         let user = new User({
             userid: userid,
@@ -63,6 +64,7 @@ router.post('/signup', async (req, res)=>{
                 if(err){
                     console.log(err)
                 }
+                // Encrypting the password and saving to database
                 user.password = hash;
                 user.save(function(err){
                     if(err){
@@ -79,10 +81,12 @@ router.post('/signup', async (req, res)=>{
     }
 })
 
+
 // get the admin login url
 router.get('/login', (req, res) =>{
     res.render('admin/admin-login')
 });
+
 
 // (post) the admin signup url processing
 router.post('/login', function(req, res, next){
@@ -93,22 +97,22 @@ router.post('/login', function(req, res, next){
     })(req, res, next)
 })
 
+
 // route to logout
 router.get('/logout', (req, res)=>{
-     
     req.logout();
-    // req.flash('success', 'You are logged out')
     res.redirect('/admin/login')
 })
+
 
 // Manager Registration
 router.get('/manager/create', ensureAuthenticated,  (req, res)=>{
     res.render('admin/create-manager')
 })
 
+
 // Manager Registration Post Route
 router.post('/manager/create', isAdmin, async (req, res)=>{
-
     // Get user logged in
     // let loggedUser = req.user
     const userid = await User.countDocuments({}) + 1
@@ -124,9 +128,7 @@ router.post('/manager/create', isAdmin, async (req, res)=>{
     const password = req.body.password
     // const createdby = loggedUser._id
     
-    // check for availability of the user
-
-
+    // instance of the manager
     let user = new User({
         userid: userid,
         firstname: firstname,
@@ -147,6 +149,7 @@ router.post('/manager/create', isAdmin, async (req, res)=>{
             if(err){
                 console.log(err)
             }
+            // Hashing the password and saving to the database
             user.password = hash;
             user.save(function(err){
                 if(err){
@@ -158,6 +161,7 @@ router.post('/manager/create', isAdmin, async (req, res)=>{
         })
     })
 })
+
 
 // get all products
 router.get('/products', ensureAuthenticated, (req, res) => {
@@ -218,6 +222,7 @@ router.get('/agents/view',  isAdmin, (req, res)=>{
     }) 
 })
 
+
 // agent dashboard url
 router.get('/agent', ensureAuthenticated, (req, res)=>{
     res.render('./manager/index')
@@ -234,8 +239,9 @@ router.get('/agent/pending', ensureAuthenticated, (req, res)=>{
     })
 })
 
+
 // finishing a sales router (GET)
-router.get('/agents/sale/:saleId', (req, res) =>{
+router.get('/agents/sale/:saleId',ensureAuthenticated, (req, res) =>{
     Sales.findById(req.params.saleId, (err, sale)=>{
         if(err){
             console.log(err)
@@ -243,11 +249,24 @@ router.get('/agents/sale/:saleId', (req, res) =>{
         res.render('manager/finish', {sale: sale})
     })
 })
+
+
 // agent able to complete a transaction
-router.post('/agents/sale/:saleId', (req, res)=>{
-    // const 
+router.post('/agents/sale/:saleId', ensureAuthenticated, (req, res)=>{
+    salesModel.updateOne({_id: req.params.saleId}, {
+        set: {
+            status: 'complete'
+        }
+    }, (err, updatedSale)=>{
+        if(err){
+            console.log(err)
+        }else{
+            res.redirect('/admin')
+        }
+    })
 })
  
+
 // admin delete route
 router.post('/products/delete/:productId', async(req, res)=>{
     let query = req.params.productId
@@ -262,4 +281,23 @@ router.post('/products/delete/:productId', async(req, res)=>{
         console.log(err)
     }
 })
+
+
+// agent deleting the orders
+router.post('/agent/delete/:productId', async(req, res)=>{
+    let query = req.params.productId
+    try{
+        await salesModel.deleteOne({_id: query}, (err, result)=>{
+            if(err){
+                console.log(err)
+            }
+            res.redirect('/admin/agent/pending')
+        })
+    }catch(err){
+        console.log(err)
+    }
+})
+
+
+
 module.exports = router;

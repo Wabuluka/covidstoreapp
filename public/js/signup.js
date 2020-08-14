@@ -18,12 +18,16 @@ signupForm.addEventListener('submit', (e)=>{
     let password = document.signupForm.password.value;
     let password2 = document.signupForm.password2.value;
 
-
+    // errors
     let firstnameError = lastnameError = emailError = usernameError = genderError = ninError = countryError = passwordError = password2Error = true
 
+    // consts
+    let regex = /^[a-zA-Z\s]+$/;
     // first name validation
     if(firstname == ''){
         printerError('firstnameError', 'First Name must be provided')
+    }else if(regex.test(firstname) === false){
+        printerError("firstnameError", "Please enter a valid First Name")
     }
     else {
         printerError("firstnameError", "")
@@ -33,7 +37,10 @@ signupForm.addEventListener('submit', (e)=>{
     // last name validation
     if(lastname == ''){
         printerError('lastnameError', 'Last Name must be provided')
-    }else{
+    }else if(regex.test(lastname) === false){
+        printerError("lastnameError", "Please enter a valid Last Name")
+    }
+    else{
         printerError('lastnameError', '')
         lastnameError = false
     }
@@ -49,7 +56,10 @@ signupForm.addEventListener('submit', (e)=>{
     // username validation
     if(username == ''){
         printerError('usernameError', 'Username must be provided')
-    }else{
+    }else if(regex.test(username) === false){
+        printerError("usernameError", "Please enter a valid Username")
+    }
+    else{
         printerError('usernameError', '')
         usernameError = false
     }
@@ -80,7 +90,10 @@ signupForm.addEventListener('submit', (e)=>{
     // password validation
     if(password == ''){
         printerError('passwordError', 'Password must be provided')
-    }else{
+    }else if(password.length <=5){
+        printerError('passwordError', 'Password must have 6 characters or more')
+    }
+    else{
         printerError('passwordError', '')
         passwordError = false
     }

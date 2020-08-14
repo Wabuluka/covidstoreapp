@@ -58,7 +58,6 @@ router.get('/buy/:productId', (req, res)=>{
         }
         
     })
-    // res.render('sales')
 })
 
 // a customer requests to buy from here
@@ -70,6 +69,7 @@ router.post('/buy/:productId', async(req, res) =>{
     const datebought = Date.now()
     const status = 'pending'
 
+    // instance of sales model
     const pay = new salesModel({
         productId: productId,
         amountpaid: paidamount,
@@ -79,6 +79,7 @@ router.post('/buy/:productId', async(req, res) =>{
         status: status
     })
     try{
+        // save to the database
         await pay.save((err, paymentReq)=>{
             if(err){
                 console.log(err)
@@ -89,6 +90,7 @@ router.post('/buy/:productId', async(req, res) =>{
         console.log(err)
     }
 })
+
 // successon buying request
 router.get('/buy/success', (req, res)=>{
     res.render('success')

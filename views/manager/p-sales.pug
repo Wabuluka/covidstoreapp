@@ -35,7 +35,8 @@ block content
                                 - var productId = product._id
                                 a(href=('/admin/agents/sale/' +product._id)) complete
                             td
-                                a(href="") delete
+                                form(action=("/admin/agent/delete/" +productId), method="post")
+                                    button.btn delete
 
         .row.mt-3
             .col-sm-10

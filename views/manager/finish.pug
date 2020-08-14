@@ -8,7 +8,7 @@ block content
             .col-sm-7.mt-5
                 header.card-header
 
-                    h4.card-title Purchase Order
+                    h4.card-title Purchase Order Clearance
                 form(method="POST" action=('/admin/agents/sale/'+ sale._id) name="loginForm" onsubmit="return validateLogin()")
                     .form-row.mt-2
                         .col.form-group
@@ -18,21 +18,16 @@ block content
                     .form-row
                         .col.form-group
                             label Your Email Address
-                            input.form-control(type="email" name="email")
+                            input.form-control(type="email" name="email" value=sale.customeremail readonly)
                             #customerEmailError.error
                     .form-row
                         .col.form-group
                             label Product Name
-                            input.form-control.muted(type="text" value=sale.productname )
+                            input.form-control.muted(type="text" value=sale.customername readonly)
                     .form-row
                         .col.form-group
                             label Cost of Product
-                            input.form-control.muted(type="number" value=sale.productcost )
-                    .form-row
-                        .col.form-group
-                            label Amount being paid
-                            input.form-control(type="number" name="paidamount")
-                            //- #customerEmailError.error
+                            input.form-control.muted(type="number" value=sale.amountpaid )
 
                     .row.mt-2
                         .col.form-group

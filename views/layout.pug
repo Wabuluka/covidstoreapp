@@ -35,27 +35,31 @@ html(lang="en")
 
             block content
 
-        footer.mt-3
+        footer.mt-3.pt-3
             .container
                 .row.pt-2
                     .col-sm-4
                         small &copy; Covid Store 2020 - dwabuluka
                         p.small Logo was created for free from
                             a(href="https://logomakr.com/")  https://logomakr.com/
-                    .col-sm-3
-                        h4 Important Links
-                        nav.nav.flex-column
-                            a.nav-link(href='/') Home
-                            a.nav-link(href='/about') About
-                            if !user
-                                a.nav-link(href='/admin/signup') Create Admin
 
-                    .col-sm-5
+                    .col-sm-2
+                        h5 Important
+                        nav.nav.flex-column
+                            a(href='/') Home
+                            a(href='/about') About
+                            if !user
+                                a(href='/admin/signup') Create Admin
+
+                    .col-sm-2
+                        h5 Connect
+                        nav.nav.flex-column
+                            a(href='https://www.facebook.com/') Facebook
+                            a(href='https://twitter.com/') Twitter
+
+                    .col-sm-4
                         h5 Disclaimer
-                        if(locals.message)
-                            p #{message.success}
-                        p
-                            small All the products herein have been pre-purchased from their manufacturers. Therefore, the store retains the rights to sell at a promotion or any prices that is prefered
+                        small All the products herein have been pre-purchased from their manufacturers. Therefore, the store retains the rights to sell at a promotion or any prices that is prefered
                         small Thank you for buying from us.
 
 script(src='https://code.jquery.com/jquery-3.5.1.js' integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous")  
@@ -67,3 +71,4 @@ script(src="/js/edit-product.js")
 script(src="/js/sales.js")
 script(src="/js/product-add.js")
 script(src="/js/create-manager.js")
+script(src="/js/buy.js")

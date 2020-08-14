@@ -2,7 +2,8 @@ const expess = require('express');
 const router = expess.Router();
 const productModel = require('../models/product.model');
 const helperClass = require('../middleware/helper')
-// image uploader
+
+// image uploader middleware
 const upload =  require('../middleware/uploader');
 
 
@@ -16,8 +17,6 @@ router.post('/add-product', ensureAuthenticated, upload.single('productimage') ,
 
     // Get user logged in
     const user = req.user
-
-
     const productid = await productModel.countDocuments({}) + 1
     const productname = req.body.productname
     const make = req.body.make
@@ -27,7 +26,6 @@ router.post('/add-product', ensureAuthenticated, upload.single('productimage') ,
     const category = req.body.category
     const color =  req.body.color
     const numberinstock = req.body.instock
-    
     const productdescription = req.body.description
     const productcost = req.body.productcost
     const createdby = user._id
@@ -35,6 +33,7 @@ router.post('/add-product', ensureAuthenticated, upload.single('productimage') ,
     // calculating the initial pay
     const initialpay = helperClass.intialPayCalulcator(productcost)
 
+    // instance of a product model
     const product = new productModel({
         productid: productid,
         productname: productname,
@@ -51,6 +50,7 @@ router.post('/add-product', ensureAuthenticated, upload.single('productimage') ,
         createdby: createdby
     })
     try{
+        // save to the database
         await product.save((error, result) =>{
             if(error){
                 console.log(error);
@@ -68,7 +68,6 @@ function ensureAuthenticated(req, res, next){
     if(req.isAuthenticated()){
       return next();
     } else {
-      req.flash('danger', 'Please login');
       res.redirect('/admin/login');
     }
 }
